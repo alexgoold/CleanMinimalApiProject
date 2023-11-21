@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Repositories;
 using Server.DataAccess;
+using Xunit;
 
 namespace Server.Tests
 {
