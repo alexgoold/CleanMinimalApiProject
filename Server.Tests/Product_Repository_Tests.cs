@@ -23,7 +23,7 @@ namespace Server.Tests
 		}
 
 		[Fact]
-		public void Test1()
+		public void GetProductById_WhenCalled_ReturnsProductModel()
 		{
 
 		}
