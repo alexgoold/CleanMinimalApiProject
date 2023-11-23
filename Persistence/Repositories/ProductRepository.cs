@@ -15,7 +15,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<Product> GetAsync(Guid id)
     {
-        throw new NotImplementedException();
+       return new Product();
     }
 
     public async Task<IEnumerable<Product>> GetAllAsync()
