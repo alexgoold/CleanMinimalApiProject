@@ -26,6 +26,8 @@ namespace Tests
             _sut = new ProductRepository(_context);
         }
 
+        #region AddAsync Tests
+
         [Fact]
         public async Task GetAsync_WhenCalled_Returns_SingleProduct()
         {
@@ -54,5 +56,55 @@ namespace Tests
             result.Id.Should().Be(guid);
 
         }
+
+        [Fact]
+        public async Task GetAsync_WhenCalled_With_Id_Not_In_Database_Returns_Null()
+        {
+			// Arrange
+			var guid = Guid.NewGuid();
+
+			// Act
+			var result = await _sut.GetAsync(guid);
+
+			// Assert
+			result.Should().BeNull();
+
+		}
+
+        [Fact]
+        public async Task GetAsync_WhenCalled_With_InvalidGuid_Returns_Null()
+        {
+            // Arrange
+			var guid = Guid.Empty;
+
+			// Act
+			var result = await _sut.GetAsync(guid);
+
+			// Assert
+			result.Should().BeNull();
+
+        }
+
+
+
+        #endregion  
+
+        #region GetAllAsync Tests
+
+        [Fact]
+        public async Task GetAllAsync_WhenCalled_Returns_ListOfProducts()
+        {
+			// Arrange
+
+
+            // Act
+            var result = _sut.GetAllAsync();
+
+            // Assert
+            result.Should().BeOfType<List<Product>>();
+        }
+
+        #endregion
+
     }
 }

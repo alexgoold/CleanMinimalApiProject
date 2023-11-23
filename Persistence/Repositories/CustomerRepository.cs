@@ -13,7 +13,7 @@ public class CustomerRepository : ICustomerRepository
         _context = context;
     }
 
-    public async Task<Customer> GetAsync(Guid id)
+    public async Task<Customer?> GetAsync(Guid id)
     {
         throw new NotImplementedException();
     }

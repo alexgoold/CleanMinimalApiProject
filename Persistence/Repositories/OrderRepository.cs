@@ -12,7 +12,7 @@ public class OrderRepository : IOrderRepository
     {
         _context = context;
     }
-    public async Task<Order> GetAsync(Guid id)
+    public async Task<Order?> GetAsync(Guid id)
     {
         throw new NotImplementedException();
     }

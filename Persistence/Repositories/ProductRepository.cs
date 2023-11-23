@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain;
 using Infrastructure.DataContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Repositories;
 
@@ -13,14 +14,14 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
 
-    public async Task<Product> GetAsync(Guid id)
+    public async Task<Product?> GetAsync(Guid id)
     {
        return await _context.Products.FindAsync(id);
     }
 
     public async Task<IEnumerable<Product>> GetAllAsync()
     {
-        throw new NotImplementedException();
+	    return new List<Product>();
     }
 
     public async Task<Product> AddAsync(Product entity)
