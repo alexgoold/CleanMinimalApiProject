@@ -1,3 +1,5 @@
+using Domain;
+using FluentAssertions;
 using Infrastructure.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Repositories;
@@ -23,14 +25,16 @@ namespace Tests
         }
 
         [Fact]
-        public void GetAsync_WhenCalled_Returns_SingleProductModel()
+        public async Task GetAsync_WhenCalled_Returns_SingleProductModel()
         {
             // Arrange
 
 
             // Act
+            var result = await _sut.GetAsync(Guid.NewGuid());
 
             // Assert
+            result.Should().BeOfType<Product>();
         }
     }
 }
