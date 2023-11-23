@@ -1,6 +1,6 @@
 ﻿using Application.UnitOfWork;
 
-namespace Server.Mediator.Products.Get;
+namespace Server.Endpoints.Products.Get;
 
 public class GetProductRequest : IHttpRequest
 {

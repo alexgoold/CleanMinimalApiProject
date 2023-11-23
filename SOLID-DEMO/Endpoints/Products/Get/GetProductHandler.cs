@@ -1,8 +1,6 @@
-﻿using Domain;
-using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using MediatR;
 
-namespace Server.Mediator.Products.Get
+namespace Server.Endpoints.Products.Get
 {
     public class GetProductHandler : IRequestHandler<GetProductRequest, IResult>
     {

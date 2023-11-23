@@ -1,4 +1,4 @@
-﻿using Server.Mediator.Products.Get;
+﻿using Server.Endpoints.Products.Get;
 
 namespace Server.Extensions.ProductEndpoints
 {

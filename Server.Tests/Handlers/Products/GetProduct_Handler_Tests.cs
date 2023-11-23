@@ -1,10 +1,10 @@
 ﻿using Application.UnitOfWork;
 using FakeItEasy;
 using FluentAssertions;
-using Server.Mediator.Products.Get;
+using Server.Endpoints.Products.Get;
 using Xunit;
 
-namespace Tests.Handlers.Product;
+namespace Tests.Handlers.Products;
 
 public class GetProduct_Handler_Tests
 {

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Server.Mediator;
+using Server.Endpoints;
 
 namespace Server.Extensions
 {
