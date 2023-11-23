@@ -25,7 +25,7 @@ namespace Tests
         }
 
         [Fact]
-        public async Task GetAsync_WhenCalled_Returns_SingleProductModel()
+        public async Task GetAsync_WhenCalled_Returns_SingleProduct()
         {
             // Arrange
 
@@ -35,6 +35,12 @@ namespace Tests
 
             // Assert
             result.Should().BeOfType<Product>();
+        }
+
+        [Fact]
+        public async Task GetAsync_WhenCalledW_WithSpecifiedId_Returns_SingleProduct_WithMatchingId()
+        {
+
         }
     }
 }
