@@ -12,20 +12,20 @@ public class ProductDatabase
 			context.Products.AddRange(
 				new Product()
 				{
-					Id = 1,
+					Id = Guid.NewGuid(),
 					Name = "Computer",
 					Description = "This is a computer"
 
 				},
 				new Product()
 				{
-					Id = 2,
+					Id = Guid.NewGuid(),
 					Name = "Laptop",
 					Description = "This is a laptop"
 				},
 				new Product()
 				{
-					Id = 3,
+					Id = Guid.NewGuid(),
 					Name = "Phone",
 					Description = "This is a phone"
 				}

@@ -3,6 +3,7 @@ using FluentAssertions;
 using Infrastructure.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Repositories;
+using Tests.InMemoryDb;
 using Xunit;
 
 namespace Tests
@@ -40,6 +41,8 @@ namespace Tests
         [Fact]
         public async Task GetAsync_WhenCalledW_WithSpecifiedId_Returns_SingleProduct_WithMatchingId()
         {
+            // Arrange
+            ProductDatabase.SeedDatabase(_context);
 
         }
     }
