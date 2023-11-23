@@ -133,6 +133,23 @@ namespace Tests
 
 		#endregion
 
+		#region AddAsync Tests
+
+		[Fact]
+		public async Task AddAsync_WhenCalled_SavesProduct_ToDatabase()
+		{
+			// Arrange
+			var product = ProductGenerator.GenerateProduct();
+
+			// Act
+			await _sut.AddAsync(product);
+
+			// Assert
+			_context.Products.Should().ContainEquivalentOf(product);
+		}
+
+		#endregion
+
 
 
 	}
