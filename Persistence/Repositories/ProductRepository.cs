@@ -1,6 +1,6 @@
-﻿using Server.DataAccess;
-using Server.Interfaces;
-using System;
+﻿using Application.Common;
+using Server.DataAccess;
+using Shared;
 
 namespace Persistence.Repositories;
 
@@ -10,5 +10,28 @@ public class ProductRepository : IProductRepository
 
 	public ProductRepository(ShopContext context) => _context = context;
 
-	// TODO: Implement CRUD
+	public async Task<Product?> GetAsync(Guid id)
+	{
+		throw new NotImplementedException();
+	}
+
+	public async Task<IEnumerable<Product>> GetAllAsync()
+	{
+		throw new NotImplementedException();
+	}
+
+	public async Task<Product> AddAsync(Product entity)
+	{
+		throw new NotImplementedException();
+	}
+
+	public async Task<Product> UpdateAsync(Product entity)
+	{
+		throw new NotImplementedException();
+	}
+
+	public async Task<Product> DeleteAsync(Product entity)
+	{
+		throw new NotImplementedException();
+	}
 }

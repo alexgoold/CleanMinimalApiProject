@@ -29,8 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Persistence\Persistence.csproj" />
-    <ProjectReference Include="..\SOLID-DEMO\Server.csproj" />
+    <ProjectReference Include="..\DataAccess\Persistence.csproj" />
   </ItemGroup>
+
 
 </Project>

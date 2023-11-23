@@ -1,5 +1,6 @@
+using Infrastructure.DataContext;
 using Microsoft.EntityFrameworkCore;
-using Server.DataAccess;
+using Server.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<ShopContext>(options =>
     var connectionString = builder.Configuration.GetConnectionString("UsersDb");
     options.UseSqlServer(connectionString);
 });
+
+DependencyInjection.AddDependencyInjection(builder.Services, builder);
 
 var app = builder.Build();
 

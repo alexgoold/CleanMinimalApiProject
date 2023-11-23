@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared;
 
-namespace Server.DataAccess;
+namespace Infrastructure.DataContext;
 
 public class ShopContext : DbContext
 {

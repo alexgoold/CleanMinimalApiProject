@@ -1,9 +1,8 @@
-﻿using System.Collections.Immutable;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Shared;
 using System.ComponentModel.DataAnnotations;
-using Server.DataAccess;
+using Infrastructure.DataContext;
+using Shared;
 
 namespace Server.Controllers;
 
@@ -91,14 +90,14 @@ public class MainController : ControllerBase
     [HttpGet("/orders")]
     public async Task<IActionResult> GetAllOrders()
     {
-        var orders = await _shopContext.Orders.Include(o=> o.Customer).Include(o=>o.Products).ToListAsync();
+        var orders = await _shopContext.Orders.Include(o => o.Customer).Include(o => o.Products).ToListAsync();
         return Ok(orders);
     }
 
     [HttpGet("/orders/customer/{id}")]
     public async Task<IActionResult> GetOrdersForCustomer(int id)
     {
-        var orders = await _shopContext.Orders.Include(o=>o.Customer).Where(c=> c.Customer.Id == id).Include(o=>o.Products).ToListAsync();
+        var orders = await _shopContext.Orders.Include(o => o.Customer).Where(c => c.Customer.Id == id).Include(o => o.Products).ToListAsync();
         if (orders.Count == 0)
         {
             return NotFound();
@@ -127,7 +126,7 @@ public class MainController : ControllerBase
             products.Add(prod);
         }
 
-        var order = new Order() {Customer = customer, Products = products};
+        var order = new Order() { Customer = customer, Products = products };
         var now = DateTime.Now;
         order.ShippingDate = now.AddDays(5);
 
@@ -194,7 +193,7 @@ public class MainController : ControllerBase
 
         foreach (var prodId in itemsToRemove.ProductIds)
         {
-            var prod =  order.Products.FirstOrDefault(p => p.Id == prodId);
+            var prod = order.Products.FirstOrDefault(p => p.Id == prodId);
             if (prod is null)
             {
                 continue;
