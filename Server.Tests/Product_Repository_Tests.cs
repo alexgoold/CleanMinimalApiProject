@@ -149,20 +149,6 @@ namespace Tests
 			_context.Products.Should().ContainEquivalentOf(product);
 		}
 
-		[Fact]
-		public async Task AddAsync_WhenCalled_WithProduct_With_Id_Already_In_Database_ThrowsDbUpdateException()
-		{
-			// Arrange
-			var product = ProductGenerator.GenerateProduct();
-			ProductDatabase.SeedDatabaseWithSingleProduct(_context, product);
-
-			// Act
-			var act = async () => await _sut.AddAsync(product);
-
-			// Assert
-			await act.Should().ThrowAsync<ArgumentException>();
-		}
-
 		#endregion
 
 
