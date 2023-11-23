@@ -30,12 +30,12 @@ public class ProductRepository : IProductRepository
 	    await _context.Products.AddAsync(entity);
     }
 
-    public async Task<Product> UpdateAsync(Product entity)
+    public async Task UpdateAsync(Product entity)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Product> DeleteAsync(Product entity)
+    public async Task DeleteAsync(Product entity)
     {
         throw new NotImplementedException();
     }
