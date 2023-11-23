@@ -118,6 +118,19 @@ namespace Tests
 			result.Count().Should().Be(3);
 		}
 
+		[Fact]
+		public async Task GetAllAsync_WhenCalledWithNoProductsInDatabase_Returns_EmptyList()
+		{
+			// Arrange
+
+
+			// Act
+			var result = await _sut.GetAllAsync();
+
+			// Assert
+			result.Should().BeEmpty();
+		}
+
 		#endregion
 
 	}
