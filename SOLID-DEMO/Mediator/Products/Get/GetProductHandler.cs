@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Domain;
+using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Server.Mediator.Products.Get
 {
@@ -6,7 +8,9 @@ namespace Server.Mediator.Products.Get
 	{
 		public async Task<IResult> Handle(GetProductRequest request, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			var product = await request.UnitOfWork.Products.GetAsync(request.ProductId);
+			
+			return Results.Ok(product);
 		}
 	}
 }
