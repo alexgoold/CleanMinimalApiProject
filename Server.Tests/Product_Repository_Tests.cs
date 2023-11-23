@@ -26,7 +26,7 @@ namespace Tests
 			_sut = new ProductRepository(_context);
 		}
 
-		#region AddAsync Tests
+		#region GetAsync Tests
 
 		[Fact]
 		public async Task GetAsync_WhenCalled_Returns_SingleProduct()
@@ -132,6 +132,8 @@ namespace Tests
 		}
 
 		#endregion
+
+
 
 	}
 }
