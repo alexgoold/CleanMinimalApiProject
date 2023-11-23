@@ -5,7 +5,7 @@ namespace Tests.InMemoryDb;
 
 public class ProductDatabase
 {
-	public static void SeedDatabase(ShopContext context)
+	public static void SeedDatabaseWith3Products(ShopContext context)
 	{
 		if (!context.Products.Any())
 		{

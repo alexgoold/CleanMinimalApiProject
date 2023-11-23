@@ -9,57 +9,58 @@ using Xunit;
 
 namespace Tests
 {
-    public class Product_Repository_Tests
-    {
-        private ProductRepository _sut = null!;
-        private ShopContext _context = null!;
-        private DbContextOptions<ShopContext> _dbContextOptions = null!;
+	public class Product_Repository_Tests
+	{
+		private ProductRepository _sut = null!;
+		private ShopContext _context = null!;
+		private DbContextOptions<ShopContext> _dbContextOptions = null!;
 
-        public Product_Repository_Tests()
-        {
-            _dbContextOptions = new DbContextOptionsBuilder<ShopContext>()
-                .UseInMemoryDatabase(databaseName: "ProductDbTest")
-                .Options;
+		public Product_Repository_Tests()
+		{
+			_dbContextOptions = new DbContextOptionsBuilder<ShopContext>()
+				.UseInMemoryDatabase(databaseName: "ProductDbTest")
+				.Options;
 
-            _context = new ShopContext(_dbContextOptions);
+			_context = new ShopContext(_dbContextOptions);
 
-            _sut = new ProductRepository(_context);
-        }
+			_sut = new ProductRepository(_context);
+		}
 
-        #region AddAsync Tests
+		#region AddAsync Tests
 
-        [Fact]
-        public async Task GetAsync_WhenCalled_Returns_SingleProduct()
-        {
-            // Arrange
+		[Fact]
+		public async Task GetAsync_WhenCalled_Returns_SingleProduct()
+		{
+			// Arrange
+			var product = ProductGenerator.GenerateProduct();
+			ProductDatabase.SeedDatabeWithSingleProduct(_context, product);
 
+			// Act
+			var result = await _sut.GetAsync(product.Id);
 
-            // Act
-            var result = await _sut.GetAsync(Guid.NewGuid());
+			// Assert
+			result.Should().BeOfType<Product>();
+		}
 
-            // Assert
-            result.Should().BeOfType<Product>();
-        }
+		[Fact]
+		public async Task GetAsync_WhenCalled_WithSpecifiedId_Returns_SingleProduct_WithMatchingId()
+		{
+			// Arrange
+			var product = ProductGenerator.GenerateProduct();
+			ProductDatabase.SeedDatabeWithSingleProduct(_context, product);
+			var guid = product.Id;
 
-        [Fact]
-        public async Task GetAsync_WhenCalled_WithSpecifiedId_Returns_SingleProduct_WithMatchingId()
-        {
-            // Arrange
-            var product = ProductGenerator.GenerateProduct();
-            ProductDatabase.SeedDatabeWithSingleProduct(_context, product);
-            var guid = product.Id;
+			// Act
+			var result = await _sut.GetAsync(guid);
 
-            // Act
-            var result = await _sut.GetAsync(guid);
+			// Assert
+			result.Id.Should().Be(guid);
 
-            // Assert
-            result.Id.Should().Be(guid);
+		}
 
-        }
-
-        [Fact]
-        public async Task GetAsync_WhenCalled_With_Id_Not_In_Database_Returns_Null()
-        {
+		[Fact]
+		public async Task GetAsync_WhenCalled_With_Id_Not_In_Database_Returns_Null()
+		{
 			// Arrange
 			var guid = Guid.NewGuid();
 
@@ -71,10 +72,10 @@ namespace Tests
 
 		}
 
-        [Fact]
-        public async Task GetAsync_WhenCalled_With_InvalidGuid_Returns_Null()
-        {
-            // Arrange
+		[Fact]
+		public async Task GetAsync_WhenCalled_With_InvalidGuid_Returns_Null()
+		{
+			// Arrange
 			var guid = Guid.Empty;
 
 			// Act
@@ -83,28 +84,41 @@ namespace Tests
 			// Assert
 			result.Should().BeNull();
 
-        }
+		}
 
 
 
-        #endregion  
+		#endregion
 
-        #region GetAllAsync Tests
+		#region GetAllAsync Tests
 
-        [Fact]
-        public async Task GetAllAsync_WhenCalled_Returns_ListOfProducts()
-        {
+		[Fact]
+		public async Task GetAllAsync_WhenCalled_Returns_ListOfProducts()
+		{
 			// Arrange
 
 
-            // Act
-            var result = _sut.GetAllAsync();
+			// Act
+			var result = await _sut.GetAllAsync();
 
-            // Assert
-            result.Should().BeOfType<List<Product>>();
-        }
+			// Assert
+			result.Should().BeOfType<List<Product>>();
+		}
 
-        #endregion
+		[Fact]
+		public async Task GetAllAsync_WhenCalled_Returns_ListOfProducts_With_Count_Matching_Number_Of_Products_In_Database()
+		{
+			// Arrange
+			ProductDatabase.SeedDatabaseWith3Products(_context);
 
-    }
+			// Act
+			var result = await _sut.GetAllAsync();
+
+			// Assert
+			result.Count().Should().Be(3);
+		}
+
+		#endregion
+
+	}
 }

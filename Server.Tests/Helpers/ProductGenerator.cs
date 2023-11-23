@@ -15,7 +15,7 @@ public static class ProductGenerator
 		};
 	}
 
-	public static List<Product> GenerateListOfProducts()
+	public static List<Product> GenerateListOf3Products()
 	{
 		return new List<Product>()
 		{
