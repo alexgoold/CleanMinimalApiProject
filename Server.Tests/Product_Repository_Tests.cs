@@ -157,7 +157,7 @@ namespace Tests
 			ProductDatabase.SeedDatabeWithSingleProduct(_context, product);
 
 			// Act
-			Func<Task> act = async () => await _sut.AddAsync(product);
+			var act = async () => await _sut.AddAsync(product);
 
 			// Assert
 			await act.Should().ThrowAsync<DbUpdateException>();
