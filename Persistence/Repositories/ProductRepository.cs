@@ -25,9 +25,9 @@ public class ProductRepository : IProductRepository
     }
     
 
-    public async Task<Product> AddAsync(Product entity)
-    {
-        throw new NotImplementedException();
+    public async Task AddAsync(Product entity)
+    { 
+	    await _context.Products.AddAsync(entity);
     }
 
     public async Task<Product> UpdateAsync(Product entity)

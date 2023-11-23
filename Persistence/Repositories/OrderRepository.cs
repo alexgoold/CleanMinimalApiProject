@@ -22,17 +22,17 @@ public class OrderRepository : IOrderRepository
         throw new NotImplementedException();
     }
 
-    public async Task<Order> AddAsync(Order entity)
+    public async Task AddAsync(Order entity)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Order> UpdateAsync(Order entity)
+    public async Task UpdateAsync(Order entity)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Order> DeleteAsync(Order entity)
+    public async Task DeleteAsync(Order entity)
     {
         throw new NotImplementedException();
     }

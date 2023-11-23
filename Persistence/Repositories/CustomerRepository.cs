@@ -23,17 +23,17 @@ public class CustomerRepository : ICustomerRepository
         throw new NotImplementedException();
     }
 
-    public async Task<Customer> AddAsync(Customer entity)
+    public async Task AddAsync(Customer entity)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Customer> UpdateAsync(Customer entity)
+    public async Task UpdateAsync(Customer entity)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Customer> DeleteAsync(Customer entity)
+    public async Task DeleteAsync(Customer entity)
     {
         throw new NotImplementedException();
     }
