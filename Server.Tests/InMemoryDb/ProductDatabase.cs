@@ -45,4 +45,10 @@ public class ProductDatabase
 		context.Products.Add(product);
 		context.SaveChanges();
 	}
+
+	public static void EmptyDatabase(ShopContext context)
+	{
+		context.Products.RemoveRange(context.Products);
+		context.SaveChanges();
+	}
 }

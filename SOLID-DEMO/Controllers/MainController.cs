@@ -51,7 +51,7 @@ public class MainController : ControllerBase
     }
 
     [HttpDelete("/customers/delete/{id}")]
-    public async Task<IActionResult> DeleteCustomer(int id)
+    public async Task<IActionResult> DeleteCustomer(Guid id)
     {
         var customer = await _shopContext.Customers.FirstOrDefaultAsync(c => c.Id == id);
         if (customer is null) return BadRequest();
@@ -61,31 +61,6 @@ public class MainController : ControllerBase
         return Ok();
     }
 
-    [HttpGet("/products")]
-    public async Task<IActionResult> GetProducts()
-    {
-        return Ok(await _shopContext.Products.ToListAsync());
-    }
-
-    [HttpGet("/products/{id}")]
-    public async Task<IActionResult> GetProduct(int id)
-    {
-        return Ok(await _shopContext.Products.FirstOrDefaultAsync(c => c.Name.Equals(id)));
-    }
-
-    [HttpPost("/products")]
-    public async Task<IActionResult> AddProduct(Product newProd)
-    {
-        var prod = await _shopContext.Products.FirstOrDefaultAsync(p => p.Name.Equals(newProd.Name));
-        if (prod == null)
-        {
-            await _shopContext.Products.AddAsync(newProd);
-            await _shopContext.SaveChangesAsync();
-            return Ok();
-        }
-
-        return BadRequest();
-    }
 
     [HttpGet("/orders")]
     public async Task<IActionResult> GetAllOrders()
@@ -95,7 +70,7 @@ public class MainController : ControllerBase
     }
 
     [HttpGet("/orders/customer/{id}")]
-    public async Task<IActionResult> GetOrdersForCustomer(int id)
+    public async Task<IActionResult> GetOrdersForCustomer(Guid id)
     {
         var orders = await _shopContext.Orders.Include(o => o.Customer).Where(c => c.Customer.Id == id).Include(o => o.Products).ToListAsync();
         if (orders.Count == 0)
@@ -137,7 +112,7 @@ public class MainController : ControllerBase
     }
 
     [HttpDelete("/orders/{id}")]
-    public async Task<IActionResult> CancelOrder(int id)
+    public async Task<IActionResult> CancelOrder(Guid id)
     {
         var order = await _shopContext.Orders.FirstOrDefaultAsync(o => o.Id == id);
         if (order is null)
@@ -151,7 +126,7 @@ public class MainController : ControllerBase
     }
 
     [HttpPatch("order/add/{id}")]
-    public async Task<IActionResult> AddToOrder(CustomerCart itemsToAdd, int id)
+    public async Task<IActionResult> AddToOrder(CustomerCart itemsToAdd, Guid id)
     {
         var customer = await _shopContext.Customers.FirstOrDefaultAsync(c => c.Id.Equals(itemsToAdd.CustomerId));
         if (customer is null)
@@ -180,7 +155,7 @@ public class MainController : ControllerBase
     }
 
     [HttpPatch("order/remove/{id}")]
-    public async Task<IActionResult> RemoveFromOrder(CustomerCart itemsToRemove, int id)
+    public async Task<IActionResult> RemoveFromOrder(CustomerCart itemsToRemove, Guid id)
     {
         var customer = await _shopContext.Customers.FirstOrDefaultAsync(c => c.Id.Equals(itemsToRemove.CustomerId));
         if (customer is null)

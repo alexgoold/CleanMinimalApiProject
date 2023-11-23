@@ -1,6 +1,8 @@
-﻿using Application.Interfaces;
+﻿using Application;
+using Application.Interfaces;
 using Application.UnitOfWork;
 using Persistence.Repositories;
+using System.Reflection;
 
 namespace Server.DependencyInjection;
 
@@ -12,6 +14,11 @@ public static class DependencyInjection
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-    }
+
+		services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+	}
+
+
 
 }

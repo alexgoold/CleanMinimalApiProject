@@ -2,7 +2,7 @@
 
 public class CustomerCart
 {
-    public int CustomerId { get; set; }
+    public Guid CustomerId { get; set; }
 
-    public List<int> ProductIds { get; set; }
+    public List<Guid> ProductIds { get; set; }
 }
