@@ -140,12 +140,27 @@ namespace Tests
 		{
 			// Arrange
 			var product = ProductGenerator.GenerateProduct();
+			ProductDatabase.SeedDatabeWithSingleProduct(_context, product);
 
 			// Act
 			await _sut.AddAsync(product);
 
 			// Assert
 			_context.Products.Should().ContainEquivalentOf(product);
+		}
+
+		[Fact]
+		public async Task AddAsync_WhenCalled_WithProduct_With_Id_Already_In_Database_ThrowsDbUpdateException()
+		{
+			// Arrange
+			var product = ProductGenerator.GenerateProduct();
+			ProductDatabase.SeedDatabeWithSingleProduct(_context, product);
+
+			// Act
+			Func<Task> act = async () => await _sut.AddAsync(product);
+
+			// Assert
+			await act.Should().ThrowAsync<DbUpdateException>();
 		}
 
 		#endregion
