@@ -40,7 +40,7 @@ public class ProductDatabase
 		}
 	}
 
-	public static void SeedDatabeWithSingleProduct(ShopContext context, Product product)
+	public static void SeedDatabaseWithSingleProduct(ShopContext context, Product product)
 	{
 		context.Products.Add(product);
 		context.SaveChanges();

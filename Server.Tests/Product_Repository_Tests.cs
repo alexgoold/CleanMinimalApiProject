@@ -33,7 +33,7 @@ namespace Tests
 		{
 			// Arrange
 			var product = ProductGenerator.GenerateProduct();
-			ProductDatabase.SeedDatabeWithSingleProduct(_context, product);
+			ProductDatabase.SeedDatabaseWithSingleProduct(_context, product);
 
 			// Act
 			var result = await _sut.GetAsync(product.Id);
@@ -47,7 +47,7 @@ namespace Tests
 		{
 			// Arrange
 			var product = ProductGenerator.GenerateProduct();
-			ProductDatabase.SeedDatabeWithSingleProduct(_context, product);
+			ProductDatabase.SeedDatabaseWithSingleProduct(_context, product);
 			var guid = product.Id;
 
 			// Act
@@ -140,7 +140,7 @@ namespace Tests
 		{
 			// Arrange
 			var product = ProductGenerator.GenerateProduct();
-			ProductDatabase.SeedDatabeWithSingleProduct(_context, product);
+			ProductDatabase.SeedDatabaseWithSingleProduct(_context, product);
 
 			// Act
 			await _sut.AddAsync(product);
@@ -154,13 +154,13 @@ namespace Tests
 		{
 			// Arrange
 			var product = ProductGenerator.GenerateProduct();
-			ProductDatabase.SeedDatabeWithSingleProduct(_context, product);
+			ProductDatabase.SeedDatabaseWithSingleProduct(_context, product);
 
 			// Act
 			var act = async () => await _sut.AddAsync(product);
 
 			// Assert
-			await act.Should().ThrowAsync<DbUpdateException>();
+			await act.Should().ThrowAsync<ArgumentException>();
 		}
 
 		#endregion
