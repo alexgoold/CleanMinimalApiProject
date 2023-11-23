@@ -16,18 +16,18 @@ public class ProductRepository : IProductRepository
 
     public async Task<Product?> GetAsync(Guid id)
     {
-       return await _context.Products.FindAsync(id);
+        return await _context.Products.FindAsync(id);
     }
 
     public async Task<IEnumerable<Product>> GetAllAsync()
     {
-	   return await _context.Products.ToListAsync();
+        return await _context.Products.ToListAsync();
     }
-    
+
 
     public async Task AddAsync(Product entity)
-    { 
-	    await _context.Products.AddAsync(entity);
+    {
+        await _context.Products.AddAsync(entity);
     }
 
     public async Task UpdateAsync(Product entity)

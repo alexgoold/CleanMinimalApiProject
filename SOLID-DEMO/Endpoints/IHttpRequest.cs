@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Server.Mediator;
+namespace Server.Endpoints;
 
 public interface IHttpRequest : IRequest<IResult>
 {
