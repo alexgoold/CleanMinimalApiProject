@@ -15,7 +15,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<Product> GetAsync(Guid id)
     {
-       return new Product();
+       return await _context.Products.FindAsync(id);
     }
 
     public async Task<IEnumerable<Product>> GetAllAsync()

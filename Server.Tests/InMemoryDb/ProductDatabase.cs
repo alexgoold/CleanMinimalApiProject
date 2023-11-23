@@ -39,4 +39,10 @@ public class ProductDatabase
 			Console.WriteLine("Data already exists");
 		}
 	}
+
+	public static void SeedDatabeWithSingleProduct(ShopContext context, Product product)
+	{
+		context.Products.Add(product);
+		context.SaveChanges();
+	}
 }

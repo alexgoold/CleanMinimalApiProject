@@ -4,6 +4,7 @@ using Infrastructure.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Repositories;
 using Tests.Helpers;
+using Tests.InMemoryDb;
 using Xunit;
 
 namespace Tests
@@ -43,6 +44,7 @@ namespace Tests
         {
             // Arrange
             var product = ProductGenerator.GenerateProduct();
+            ProductDatabase.SeedDatabeWithSingleProduct(_context, product);
             var guid = product.Id;
 
             // Act
