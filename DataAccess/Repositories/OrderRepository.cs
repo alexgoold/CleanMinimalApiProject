@@ -1,6 +1,6 @@
-﻿using Application.Common;
+﻿using Application.Interfaces;
+using Domain;
 using Infrastructure.DataContext;
-using Shared;
 
 namespace Persistence.Repositories;
 

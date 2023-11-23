@@ -7,14 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\CustomerDtos\" />
-    <Folder Include="Contracts\ProductsDtos\" />
-    <Folder Include="Contracts\OrderDtos\" />
     <Folder Include="Mediator\" />
     <Folder Include="UnitOfWork\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>

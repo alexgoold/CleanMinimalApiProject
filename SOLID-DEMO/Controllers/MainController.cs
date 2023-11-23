@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Domain;
 using Infrastructure.DataContext;
-using Shared;
 
 namespace Server.Controllers;
 

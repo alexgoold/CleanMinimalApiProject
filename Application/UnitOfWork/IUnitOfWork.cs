@@ -1,4 +1,4 @@
-﻿using Application.Common;
+﻿using Application.Interfaces;
 
 namespace Application.UnitOfWork;
 

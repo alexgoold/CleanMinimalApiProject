@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence.Repositories;
 using Xunit;
 
-namespace Server.Tests
+namespace Tests
 {
     public class Product_Repository_Tests
     {
@@ -23,9 +23,14 @@ namespace Server.Tests
         }
 
         [Fact]
-        public void GetProductById_WhenCalled_ReturnsProductModel()
+        public void GetAsync_WhenCalled_Returns_SingleProductModel()
         {
+            // Arrange
 
+
+            // Act
+
+            // Assert
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using Shared;
+﻿
+using Domain;
 
-namespace Application.Common;
+namespace Application.Interfaces;
 
 public interface ICustomerRepository : IRepository<Customer>
 {

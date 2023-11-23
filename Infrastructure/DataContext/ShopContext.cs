@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shared;
+﻿using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DataContext;
 
