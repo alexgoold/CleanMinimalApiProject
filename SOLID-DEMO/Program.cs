@@ -15,7 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ShopContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("UsersDb");
-    options.UseSqlServer(connectionString);
+    options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Server"));
+    
 });
 
 DependencyInjection.AddDependencyInjection(builder.Services, builder);
