@@ -119,7 +119,7 @@ namespace Tests
 		}
 
 		[Fact]
-		public async Task GetAllAsync_WhenCalledWithNoProductsInDatabase_Returns_EmptyList()
+		public async Task GetAllAsync_WhenCalled_WithNoProductsInDatabase_Returns_EmptyList()
 		{
 			// Arrange
 

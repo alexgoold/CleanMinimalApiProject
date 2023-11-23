@@ -21,25 +21,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<IEnumerable<Product>> GetAllAsync()
     {
-	    return new List<Product>()
-	    {
-		    new Product()
-		    {
-			    Name = "Computer",
-			    Description = "This is a computer"
-		    },
-		    new Product()
-		    {
-			    Name = "Laptop",
-			    Description = "This is a laptop"
-		    },
-		    new Product()
-		    {
-			    Name =
-				    "Phone",
-			    Description = "This is a phone"
-		    }
-	    };
+	   return await _context.Products.ToListAsync();
     }
     
 
