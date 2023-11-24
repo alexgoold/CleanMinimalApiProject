@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MediatR;
 using Shared.ProductsDtos;
 
 namespace Server.Endpoints.Products.GetAll

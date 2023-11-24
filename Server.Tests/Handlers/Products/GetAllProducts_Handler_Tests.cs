@@ -3,6 +3,8 @@ using AutoMapper;
 using Domain;
 using FakeItEasy;
 using FluentAssertions;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Server.Endpoints.Products.GetAll;
 using Shared.ProductsDtos;
@@ -102,5 +104,17 @@ public class GetAllProducts_Handler_Tests
 		var okResult = result as Ok<IEnumerable<ProductDto>>;
 		okResult!.Value.Should().BeEquivalentTo(productDtos);
 	}
+
+	[Fact]
+	public void GetAllProductsHandler_Inherits_From_IRequestHandler()
+	{
+		// Arrange
+		
+		// Act
+
+		// Assert
+		_sut.Should().BeAssignableTo<IRequestHandler<GetAllProductsRequest, IResult>>();
+	}
+	
 }
 
