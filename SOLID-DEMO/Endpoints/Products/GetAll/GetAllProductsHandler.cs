@@ -4,7 +4,7 @@ using Shared.ProductsDtos;
 
 namespace Server.Endpoints.Products.GetAll
 {
-	public class GetAllProductsHandler
+	public class GetAllProductsHandler : IRequestHandler<GetAllProductsRequest, IResult>
 	{
 		private readonly IMapper _mapper;
 
