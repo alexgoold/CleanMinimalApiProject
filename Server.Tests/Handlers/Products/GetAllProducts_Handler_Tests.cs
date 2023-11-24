@@ -1,6 +1,7 @@
 ﻿using Application.UnitOfWork;
 using AutoMapper;
 using FakeItEasy;
+using FluentAssertions;
 using Server.Endpoints.Products.GetAll;
 using Shared.ProductsDtos;
 using Tests.Helpers;

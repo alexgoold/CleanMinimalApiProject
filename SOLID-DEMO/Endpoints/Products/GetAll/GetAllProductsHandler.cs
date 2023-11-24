@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Shared.ProductsDtos;
 
 namespace Server.Endpoints.Products.GetAll
 {
@@ -9,6 +10,11 @@ namespace Server.Endpoints.Products.GetAll
 		public GetAllProductsHandler(IMapper mapper)
 		{
 			_mapper = mapper;
+		}
+
+		public async Task<List<ProductDto>> Handle(GetAllProductsRequest request, CancellationToken cancellationToken)
+		{
+			return new List<ProductDto>();
 		}
 
 	}
