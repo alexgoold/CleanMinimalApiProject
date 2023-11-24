@@ -40,7 +40,7 @@ public class GetAllProducts_Handler_Tests
 		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
 		// Assert
-		result.Should().BeOfType<Ok<List<ProductDto>>>();
+		result.Should().BeOfType<Ok<IEnumerable<ProductDto>>>();
 	}
 
 	[Fact]
@@ -54,7 +54,7 @@ public class GetAllProducts_Handler_Tests
 		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
 		// Assert
-		result.Should().BeOfType<Ok<List<ProductDto>>>();
+		result.Should().BeOfType<Ok<IEnumerable<ProductDto>>>();
 	}
 
 	[Fact]
@@ -80,7 +80,7 @@ public class GetAllProducts_Handler_Tests
 		await _sut.Handle(_dummyRequest, CancellationToken.None);
 
 		// Assert
-		A.CallTo(() => _fakeMapper.FakedObject.Map<List<ProductDto>>(A<List<Product>>._))
+		A.CallTo(() => _fakeMapper.FakedObject.Map<IEnumerable<ProductDto>>(A<List<Product>>._))
 			.MustHaveHappenedOnceExactly();
 	}
 
@@ -91,13 +91,15 @@ public class GetAllProducts_Handler_Tests
 		var products = ProductGenerator.GenerateListOf3Products();
 		A.CallTo(() => _fakeUnitOfWork.Products.GetAllAsync()).Returns(products);
 		var productDtos = ProductGenerator.GenerateListOf3ProductDtos();
+		A.CallTo(() => _fakeMapper.FakedObject.Map<IEnumerable<ProductDto>>(A<List<Product>>._))
+			.Returns(productDtos);
 
 		// Act
 		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
 		// Assert
-		result.Should().BeOfType<Ok<List<ProductDto>>>();
-		var okResult = result as Ok<List<ProductDto>>;
+		result.Should().BeOfType<Ok<IEnumerable<ProductDto>>>();
+		var okResult = result as Ok<IEnumerable<ProductDto>>;
 		okResult!.Value.Should().BeEquivalentTo(productDtos);
 	}
 }
