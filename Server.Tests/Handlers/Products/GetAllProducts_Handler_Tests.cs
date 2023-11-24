@@ -2,6 +2,7 @@
 using AutoMapper;
 using FakeItEasy;
 using Server.Endpoints.Products.Get;
+using Server.Endpoints.Products.GetAll;
 
 namespace Tests.Handlers.Products;
 
@@ -16,9 +17,9 @@ public class GetAllProducts_Handler_Tests
 	{
 		_fakeMapper = new Fake<IMapper>();
 		_fakeUnitOfWork = A.Fake<IUnitOfWork>();
-		_dummyRequest = A.Dummy<GetProductRequest>();
+		_dummyRequest = A.Dummy<GetAllProductsRequest>();
 		_dummyRequest.UnitOfWork = _fakeUnitOfWork;
-		_sut = new GetProductHandler(_fakeMapper.FakedObject);
+		_sut = new GetAllProductsHandler(_fakeMapper.FakedObject);
 
 	}
 }
