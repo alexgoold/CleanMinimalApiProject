@@ -28,9 +28,9 @@ public class GetAllProducts_Handler_Tests
 
 	}
 
-	
+
 	[Fact]
-	public async Task GetAllProductHandler_WhenCalled_WithProductsInDb_Should_Return_Ok_With_AListOf_ProductDtos()
+	public async Task Handle_WhenCalled_WithProductsInDb_Should_Return_Ok_With_AListOf_ProductDtos()
 	{
 		// Arrange
 		var products = ProductGenerator.GenerateListOf3Products();
@@ -45,7 +45,7 @@ public class GetAllProducts_Handler_Tests
 
 	[Fact]
 	public async Task
-		GetAllProductHandler_WhenCalled_WithNoProductsInDb_Should_Return_Ok_With_AnEmptyListOf_ProductDtos()
+		Handle_WhenCalled_WithNoProductsInDb_Should_Return_Ok_With_AnEmptyListOf_ProductDtos()
 	{
 		// Arrange
 		A.CallTo(() => _fakeUnitOfWork.Products.GetAllAsync()).Returns(new List<Product>());
@@ -58,7 +58,7 @@ public class GetAllProducts_Handler_Tests
 	}
 
 	[Fact]
-	public async Task GetAllProductHandler_WhenCalled_Should_Call_UnitOfWork_Products_GetAllAsync()
+	public async Task Handle_WhenCalled_Should_Call_UnitOfWork_Products_GetAllAsync()
 	{
 		// Arrange
 		A.CallTo(() => _fakeUnitOfWork.Products.GetAllAsync()).Returns(new List<Product>());
@@ -71,7 +71,7 @@ public class GetAllProducts_Handler_Tests
 	}
 
 	[Fact]
-	public async Task GetAllProductHandler_WhenCalled_Should_Call_Mapper_Map()
+	public async Task Handle_WhenCalled_Should_Call_Mapper_Map()
 	{
 		// Arrange
 		A.CallTo(() => _fakeUnitOfWork.Products.GetAllAsync()).Returns(new List<Product>());
@@ -84,5 +84,21 @@ public class GetAllProducts_Handler_Tests
 			.MustHaveHappenedOnceExactly();
 	}
 
+	[Fact]
+	public async Task Handle_WhenCalled_Should_Return_Ok_With_ListOf_ProductDtos_That_Match_Products_InDb()
+	{
+		// Arrange
+		var products = ProductGenerator.GenerateListOf3Products();
+		A.CallTo(() => _fakeUnitOfWork.Products.GetAllAsync()).Returns(products);
+		var productDtos = ProductGenerator.GenerateListOf3ProductDtos();
 
+		// Act
+		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+
+		// Assert
+		result.Should().BeOfType<Ok<List<ProductDto>>>();
+		var okResult = result as Ok<List<ProductDto>>;
+		okResult!.Value.Should().BeEquivalentTo(productDtos);
+	}
 }
+
