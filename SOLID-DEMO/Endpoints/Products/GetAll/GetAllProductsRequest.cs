@@ -1,6 +1,9 @@
-﻿namespace Server.Endpoints.Products.GetAll
+﻿using Application.UnitOfWork;
+
+namespace Server.Endpoints.Products.GetAll
 {
-	public class GetAllProductsRequest
+	public class GetAllProductsRequest : IHttpRequest
 	{
+		public IUnitOfWork UnitOfWork { get; set; }
 	}
 }
