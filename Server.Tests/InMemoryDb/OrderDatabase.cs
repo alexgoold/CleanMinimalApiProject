@@ -14,7 +14,7 @@ public class OrderDatabase
                 {
                     Id = Guid.NewGuid(),
                     Products = new List<Product>(),
-                    Customer = new Customer("John", "123321"),
+                    Customer = new Customer(),
                     ShippingDate = DateTime.Now.AddDays(1),
 
                 },
@@ -22,14 +22,14 @@ public class OrderDatabase
                 {
                     Id = Guid.NewGuid(),
                     Products = new List<Product>(),
-                    Customer = new Customer("Johnny", "123321"),
+                    Customer = new Customer(),
                     ShippingDate = DateTime.Now.AddDays(1),
                 },
                 new Order()
                 {
                     Id = Guid.NewGuid(),
                     Products = new List<Product>(),
-                    Customer = new Customer("Tim", "123321"),
+                    Customer = new Customer(),
                     ShippingDate = DateTime.Now.AddDays(1),
                 }
 

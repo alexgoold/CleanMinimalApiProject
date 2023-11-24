@@ -6,14 +6,7 @@ namespace Server.Controllers
 {
     public class ProductController : ControllerBase
     {
-        internal readonly IMediator Mediator;
-
-        public ProductController(IMediator mediator)
-        {
-            Mediator = mediator;
-        }
-
-
+       
         [HttpGet("/products")]
         public async Task<IActionResult> GetProducts()
         {

@@ -21,6 +21,7 @@ builder.Services.AddDbContext<ShopContext>(options =>
 
 DependencyInjection.AddDependencyInjection(builder.Services, builder);
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
