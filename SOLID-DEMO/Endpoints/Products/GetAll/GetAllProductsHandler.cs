@@ -15,6 +15,7 @@ namespace Server.Endpoints.Products.GetAll
 		public async Task<IResult> Handle(GetAllProductsRequest request, CancellationToken cancellationToken)
 		{
 			var products = await request.UnitOfWork.Products.GetAllAsync();
+			var productDtos = _mapper.Map<List<ProductDto>>(products);
 			return Results.Ok(new List<ProductDto>());
 		}
 
