@@ -12,9 +12,9 @@ namespace Server.Endpoints.Products.GetAll
 			_mapper = mapper;
 		}
 
-		public async Task<List<ProductDto>> Handle(GetAllProductsRequest request, CancellationToken cancellationToken)
+		public async Task<IResult> Handle(GetAllProductsRequest request, CancellationToken cancellationToken)
 		{
-			return new List<ProductDto>();
+			return Results.Ok(new List<ProductDto>());
 		}
 
 	}
