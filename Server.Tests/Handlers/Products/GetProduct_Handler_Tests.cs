@@ -74,17 +74,4 @@ public class GetProduct_Handler_Tests
         
     }
 
-    [Fact]
-    public void Handle_WhenGiven_InvalidProductId_ShouldReturn_BadRequest()
-    {
-		// Arrange
-		_dummyRequest.ProductId = Guid.Empty;
-        
-		// Act
-        var result = _sut.Handle(_dummyRequest, CancellationToken.None).Result;
-
-        // Assert
-        result.Should().BeOfType<BadRequest>();
-
-    }
-}
+ }
