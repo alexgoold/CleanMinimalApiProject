@@ -2,6 +2,7 @@
 using AutoMapper;
 using FakeItEasy;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Server.Endpoints.Products.GetAll;
 using Shared.ProductsDtos;
 using Tests.Helpers;
@@ -39,5 +40,19 @@ public class GetAllProducts_Handler_Tests
 		// Assert
 		result.Should().BeOfType<List<ProductDto>>();
 
+	}
+
+	[Fact]
+	public async Task GetAllProductHandler_WhenCalled_WithProductsInDb_Should_Return_Ok_With_AListOf_ProductDtos()
+	{
+		// Arrange
+		var products = ProductGenerator.GenerateListOf3Products();
+		A.CallTo(() => _fakeUnitOfWork.Products.GetAllAsync()).Returns(products);
+
+		// Act
+		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+
+		// Assert
+		result.Should().BeOfType<Ok<List<ProductDto>>>();
 	}
 }
