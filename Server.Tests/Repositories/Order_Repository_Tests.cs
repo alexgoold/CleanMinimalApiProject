@@ -154,6 +154,7 @@ public class Order_Repository_Tests
 		GetOrdersForCustomer_WhenCalled_With3OrdersForCustomer_InDb_AndOneOrderForDifferentCustomerInDb_ShouldReturn_ListOfOrders_With_Count_3()
 	{
 		// Arrange
+		OrderDatabase.EmptyDatabase(_context);
 		var orders = OrderGenerator.Generate3OrdersForOneCustomer();
 		OrderDatabase.SeedDatabaseWithMultipleOrders(_context, orders);
 
