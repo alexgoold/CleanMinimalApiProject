@@ -49,4 +49,10 @@ public class OrderDatabase
         context.Orders.Add(order);
         context.SaveChanges();
     }
+
+    public static void EmptyDatabase(ShopContext context)
+    {
+        context.Orders.RemoveRange(context.Orders);
+		context.SaveChanges();
+    }
 }
