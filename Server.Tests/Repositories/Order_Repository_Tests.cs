@@ -210,6 +210,46 @@ public class Order_Repository_Tests
 
 	#endregion
 
+	#region UpdateOrder
+
+	[Fact]
+	public async Task UpdateOrder_WhenCalled_WithValidUpdatedOrder_ShouldUpdateOrderInDb()
+	{
+		// Arrange
+		var order = OrderGenerator.GenerateOrder();
+		OrderDatabase.SeedDatabaseWithSingleOrder(_context, order);
+
+		// Act
+		
+		order.Customer.Name = "New Name";
+		order.Products.AddRange(new List<Product>
+		{
+			new()
+			{
+				Name = "New Product",
+				Description = "New Description",
+			},
+			new()
+			{
+				Name = "New Product 2",
+				Description = "New Description 2",
+			},
+			new()
+			{
+				Name = "New Product 3",
+				Description = "New Description 3",
+			}
+		});
+
+		await _sut.UpdateAsync(order);
+		await _context.SaveChangesAsync();
+
+		// Assert
+		_context.Orders.Should().Contain(order);
+	}
+
+	#endregion
+
 
 
 }

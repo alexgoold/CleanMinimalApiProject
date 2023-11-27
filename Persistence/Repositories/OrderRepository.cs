@@ -33,12 +33,12 @@ public class OrderRepository : IOrderRepository
 
     public async Task UpdateAsync(Order entity)
     {
-        throw new NotImplementedException();
+        _context.Orders.Update(entity);
     }
 
     public async Task DeleteAsync(Order entity)
     {
-        throw new NotImplementedException();
+	    _context.Orders.Remove(entity);
     }
 
     public async Task<IEnumerable<Order>> GetOrdersForCustomerAsync(Guid customerId)
