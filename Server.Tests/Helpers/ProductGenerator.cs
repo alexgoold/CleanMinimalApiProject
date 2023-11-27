@@ -28,22 +28,22 @@ public static class ProductGenerator
 
     public static List<Product> GenerateListOf3Products()
     {
-        return new List<Product>()
+        return new List<Product>
         {
-            new Product()
+            new()
             {
                 Id = Guid.NewGuid(),
                 Name = "Milk",
                 Description = "This is milk"
 
             },
-            new Product()
+            new()
             {
                 Id = Guid.NewGuid(),
                 Name = "Chaos Terminators",
                 Description = "Heavily-armoured Elites for Chaos Space Marines and World Eaters armies"
             },
-            new Product()
+            new()
             {
                 Id = Guid.NewGuid(),
                 Name = "Rubric Marines",
@@ -57,20 +57,20 @@ public static class ProductGenerator
     {
 		return new List<ProductDto>()
 		{
-			new ProductDto()
+			new()
 			{
 				Id = Guid.NewGuid(),
 				Name = "Milk",
 				Description = "This is milk"
 
 			},
-			new ProductDto()
+			new()
 			{
 				Id = Guid.NewGuid(),
 				Name = "Chaos Terminators",
 				Description = "Heavily-armoured Elites for Chaos Space Marines and World Eaters armies"
 			},
-			new ProductDto()
+			new()
 			{
 				Id = Guid.NewGuid(),
 				Name = "Rubric Marines",

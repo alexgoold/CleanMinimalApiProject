@@ -1,6 +1,7 @@
 ﻿using Application.UnitOfWork;
 using AutoMapper;
 using FakeItEasy;
+using FluentAssertions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Server.Endpoints.Products.Add;
 using Tests.Helpers;
