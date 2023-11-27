@@ -43,6 +43,10 @@ public class OrderRepository : IOrderRepository
 
     public async Task<IEnumerable<Order>> GetOrdersForCustomerAsync(Guid customerId)
     {
-	    throw new NotImplementedException();
+	    return await _context.Orders
+		    .Include(o => o.Customer)
+		    .Include(o => o.Products)
+		    .Where(o => o.Customer.Id == customerId)
+		    .ToListAsync();
     }
 }

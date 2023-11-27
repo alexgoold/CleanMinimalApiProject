@@ -119,6 +119,57 @@ public class Order_Repository_Tests
 		result.Should().BeOfType<List<Order>>();
 	}
 
+	[Fact]
+	public async Task GetOrdersForCustomer_WhenCalled_WithCustomerId_ShouldReturn_ListOfOrders_With_Customer()
+	{
+		// Arrange
+		var order = OrderGenerator.GenerateOrder();
+		OrderDatabase.SeedDatabaseWithSingleOrder(_context, order);
+
+		// Act
+		var result = await _sut.GetOrdersForCustomerAsync(order.Customer.Id);
+
+		// Assert
+		result.Should().AllBeOfType<Order>();
+		result.First().Customer.Should().BeOfType<Customer>();
+	}
+
+	[Fact]
+	public async Task GetOrdersForCustomer_WhenCalled_WithCustomerId_ShouldReturn_ListOfOrders_With_Products()
+	{
+		// Arrange
+		var order = OrderGenerator.GenerateOrder();
+		OrderDatabase.SeedDatabaseWithSingleOrder(_context, order);
+
+		// Act
+		var result = await _sut.GetOrdersForCustomerAsync(order.Customer.Id);
+
+		// Assert
+		result.Should().AllBeOfType<Order>();
+		result.First().Products.Should().AllBeOfType<Product>();
+	}
+
+	[Fact]
+	public async Task
+		GetOrdersForCustomer_WhenCalled_With3OrdersForCustomer_InDb_AndOneOrderForDifferentCustomerInDb_ShouldReturn_ListOfOrders_With_Count_3()
+	{
+		// Arrange
+		var orders = OrderGenerator.Generate3OrdersForOneCustomer();
+		OrderDatabase.SeedDatabaseWithMultipleOrders(_context, orders);
+
+		var orderForDifferentCustomer = OrderGenerator.GenerateOrder();
+		orderForDifferentCustomer.Customer = new Customer(){Id = Guid.NewGuid(), Name = "New", Password = "123"};
+		OrderDatabase.SeedDatabaseWithSingleOrder(_context, orderForDifferentCustomer);
+
+		// Act
+		var allOrders = await _sut.GetAllAsync();
+		var result = await _sut.GetOrdersForCustomerAsync(orders.First().Customer.Id);
+
+		// Assert
+		allOrders.Should().HaveCount(4);
+		result.Should().HaveCount(3);
+	}
+	
 	#endregion
 
 
