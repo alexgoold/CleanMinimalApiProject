@@ -85,6 +85,23 @@ public class AddProduct_Handler_Tests
 		_sut.Should().BeAssignableTo<IRequestHandler<AddProductRequest, IResult>>();
 	}
 
+	[Fact]
+	public async Task Handle_WhenCalled_WithValidProductDto_Should_Call_SaveChangesAsync()
+	{
+		// Arrange
+		var productDto = ProductGenerator.GenerateProductDto();
+		_dummyRequest.ProductDto = productDto;
+		var validProduct = ProductGenerator.GenerateProduct();
+
+		A.CallTo(() => _fakeMapper.FakedObject.Map<Product>(productDto)).Returns(validProduct);
+
+		// Act
+		await _sut.Handle(_dummyRequest, CancellationToken.None);
+
+		// Assert
+		A.CallTo(() => _fakeUnitOfWork.SaveChangesAsync()).MustHaveHappened();
+	}
+
 	
 
 

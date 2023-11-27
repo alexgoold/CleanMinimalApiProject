@@ -21,6 +21,7 @@ public class AddProductHandler: IRequestHandler<AddProductRequest, IResult>
 		}
 
 		await request.UnitOfWork.Products.AddAsync(product);
+		await request.UnitOfWork.SaveChangesAsync();
 
 		return Results.Ok();
 	}

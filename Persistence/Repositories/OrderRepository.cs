@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain;
 using Infrastructure.DataContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Repositories;
 
@@ -14,12 +15,15 @@ public class OrderRepository : IOrderRepository
     }
     public async Task<Order?> GetAsync(Guid id)
     {
-        throw new NotImplementedException();
+	    throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Order>> GetAllAsync()
+	public async Task<IEnumerable<Order>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Orders
+	        .Include(o => o.Customer)
+	        .Include(o => o.Products)
+	        .ToListAsync();
     }
 
     public async Task AddAsync(Order entity)
@@ -35,5 +39,10 @@ public class OrderRepository : IOrderRepository
     public async Task DeleteAsync(Order entity)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<IEnumerable<Order>> GetOrdersForCustomerAsync(Guid customerId)
+    {
+	    throw new NotImplementedException();
     }
 }
