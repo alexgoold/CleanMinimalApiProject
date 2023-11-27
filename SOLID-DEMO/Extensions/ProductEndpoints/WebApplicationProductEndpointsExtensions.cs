@@ -1,4 +1,5 @@
-﻿using Server.Endpoints.Products.Get;
+﻿using Server.Endpoints.Products.Add;
+using Server.Endpoints.Products.Get;
 using Server.Endpoints.Products.GetAll;
 
 namespace Server.Extensions.ProductEndpoints
@@ -9,6 +10,7 @@ namespace Server.Extensions.ProductEndpoints
         {
             app.MediateGet<GetProductRequest>("getProduct");
             app.MediateGet<GetAllProductsRequest>("getAllProducts");
+            app.MediatePost<AddProductRequest>("addProduct");
             return app;
         }
     }

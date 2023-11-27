@@ -3,6 +3,8 @@ using AutoMapper;
 using Domain;
 using FakeItEasy;
 using FluentAssertions;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Server.Endpoints.Products.Add;
 using Tests.Helpers;
@@ -32,6 +34,7 @@ public class AddProduct_Handler_Tests
 		// Arrange
 		var productDto = ProductGenerator.GenerateProductDto();
 		_dummyRequest.ProductDto = productDto;
+		A.CallTo(() => _fakeMapper.FakedObject.Map<Product>(productDto)).Returns(ProductGenerator.GenerateProduct());
 
 		// Act
 		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
@@ -53,6 +56,36 @@ public class AddProduct_Handler_Tests
 		// Assert
 		A.CallTo(() => _fakeMapper.FakedObject.Map<Product>(productDto)).MustHaveHappenedOnceExactly();
 	}
+
+	[Fact]
+	public async Task Handle_WhenCalled_WithValidProductDto_Should_Call_UnitOfWork()
+	{
+		// Arrange
+		var productDto = ProductGenerator.GenerateProductDto();
+		_dummyRequest.ProductDto = productDto;
+		var validProduct = ProductGenerator.GenerateProduct();
+
+		A.CallTo(() => _fakeMapper.FakedObject.Map<Product>(productDto)).Returns(validProduct);
+
+		// Act
+		await _sut.Handle(_dummyRequest, CancellationToken.None);
+
+		// Assert
+		A.CallTo(() => _fakeUnitOfWork.Products.AddAsync(A<Product>._)).MustHaveHappened();
+	}
+
+	[Fact]
+	public async Task AddProductHandler_ShouldInherit_From_IRequestHandler()
+	{
+		// Arrange
+
+		// Act
+
+		// Assert
+		_sut.Should().BeAssignableTo<IRequestHandler<AddProductRequest, IResult>>();
+	}
+
+	
 
 
 }

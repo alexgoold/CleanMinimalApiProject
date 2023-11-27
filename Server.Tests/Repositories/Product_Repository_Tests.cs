@@ -148,7 +148,7 @@ namespace Tests.Repositories
             // Assert
             _context.Products.Should().ContainEquivalentOf(product);
         }
-
+        
         #endregion
 
 

@@ -9,6 +9,7 @@ namespace Server.Mapping
 		public MappingProfile()
 		{
 			CreateMap<Product, ProductDto>();
+			CreateMap<ProductDto, Product>();
 		}
 	}
 }
