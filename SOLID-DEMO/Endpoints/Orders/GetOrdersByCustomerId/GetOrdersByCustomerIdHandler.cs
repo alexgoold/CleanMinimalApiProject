@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.IdentityModel.Tokens;
 using Shared.OrderDtos;
 
-namespace Server.Endpoints.Orders.GetAllByCustomerId;
+namespace Server.Endpoints.Orders.GetOrdersByCustomerId;
 
 public class GetOrdersByCustomerIdHandler : IRequestHandler<GetOrdersByCustomerIdRequest, IResult>
 {

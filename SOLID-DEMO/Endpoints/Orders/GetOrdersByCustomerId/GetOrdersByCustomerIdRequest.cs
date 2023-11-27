@@ -1,6 +1,6 @@
 ﻿using Application.UnitOfWork;
 
-namespace Server.Endpoints.Orders.GetAllByCustomerId
+namespace Server.Endpoints.Orders.GetOrdersByCustomerId
 {
 	public class GetOrdersByCustomerIdRequest : IHttpRequest
 	{

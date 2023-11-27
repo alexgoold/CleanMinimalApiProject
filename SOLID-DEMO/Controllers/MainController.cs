@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using Domain;
 using Infrastructure.DataContext;
+using Shared;
 
 namespace Server.Controllers;
 
@@ -61,17 +62,6 @@ public class MainController : ControllerBase
         return Ok();
     }
 
-
-    [HttpGet("/orders/customer/{id}")]
-    public async Task<IActionResult> GetOrdersForCustomer(Guid id)
-    {
-        var orders = await _shopContext.Orders.Include(o => o.Customer).Where(c => c.Customer.Id == id).Include(o => o.Products).ToListAsync();
-        if (orders.Count == 0)
-        {
-            return NotFound();
-        }
-        return Ok(orders);
-    }
 
     [HttpPost("/orders")]
     public async Task<IActionResult> PlaceOrder(CustomerCart cart)

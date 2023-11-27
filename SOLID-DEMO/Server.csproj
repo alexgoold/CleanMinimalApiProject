@@ -30,7 +30,6 @@
     <Folder Include="Endpoints\Orders\CancelOrder\" />
     <Folder Include="Endpoints\Orders\AddToOrder\" />
     <Folder Include="Endpoints\Orders\RemoveFromOrder\" />
-    <Folder Include="Endpoints\Orders\PlaceOrder\" />
   </ItemGroup>
 
 </Project>
