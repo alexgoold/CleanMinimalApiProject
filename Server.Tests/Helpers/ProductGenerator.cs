@@ -16,6 +16,16 @@ public static class ProductGenerator
         };
     }
 
+    public static ProductDto GenerateProductDto()
+    {
+	    return new ProductDto()
+	    {
+		    Id = Guid.NewGuid(),
+		    Name = "Dabaddon The Respoiler",
+		    Description = "Dabaddon the Respoiler is the guy."
+	    };
+    }
+
     public static List<Product> GenerateListOf3Products()
     {
         return new List<Product>()

@@ -1,7 +1,10 @@
 ﻿using Application.UnitOfWork;
 using AutoMapper;
 using FakeItEasy;
-using Server.Endpoints.Products.Get;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Server.Endpoints.Products.Add;
+using Tests.Helpers;
+using Xunit;
 
 namespace Tests.Handlers.Products;
 
@@ -19,7 +22,21 @@ public class AddProduct_Handler_Tests
 		_dummyRequest = A.Dummy<AddProductRequest>();
 		_dummyRequest.UnitOfWork = _fakeUnitOfWork;
 		_sut = new AddProductHandler(_fakeMapper.FakedObject);
-
 	}
+
+	[Fact]
+	public async Task Handle_WhenCalled_WithValidProductDto_Should_Return_Ok()
+	{
+		// Arrange
+		var productDto = ProductGenerator.GenerateProductDto();
+		_dummyRequest.ProductDto = productDto;
+
+		// Act
+		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+
+		// Assert
+		result.Should().BeOfType<Ok>();
+	}
+
 
 }
