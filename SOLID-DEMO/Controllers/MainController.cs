@@ -62,15 +62,6 @@ public class MainController : ControllerBase
     }
 
 
-
-
-    [HttpGet("/orders")]
-    public async Task<IActionResult> GetAllOrders()
-    {
-        var orders = await _shopContext.Orders.Include(o => o.Customer).Include(o => o.Products).ToListAsync();
-        return Ok(orders);
-    }
-
     [HttpGet("/orders/customer/{id}")]
     public async Task<IActionResult> GetOrdersForCustomer(Guid id)
     {
