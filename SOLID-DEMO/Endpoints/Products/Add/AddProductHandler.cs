@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Domain;
+using MediatR;
 
 namespace Server.Endpoints.Products.Add;
 
-public class AddProductHandler
+public class AddProductHandler: IRequestHandler<AddProductRequest, IResult>
 {
 	private readonly IMapper _mapper;
 
