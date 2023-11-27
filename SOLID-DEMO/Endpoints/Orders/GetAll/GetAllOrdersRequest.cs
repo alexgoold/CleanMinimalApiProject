@@ -4,5 +4,5 @@ namespace Server.Endpoints.Orders.GetAll;
 
 public class GetAllOrdersRequest : IHttpRequest
 {
-	public IUnitOfWork UnitOfWork { get; set; }
+    public IUnitOfWork UnitOfWork { get; set; }
 }

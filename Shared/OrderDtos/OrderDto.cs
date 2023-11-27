@@ -5,8 +5,8 @@ namespace Shared.OrderDtos;
 
 public class OrderDto
 {
-	public Guid Id { get; set; }
-	public List<ProductDto> Products { get; set; }
-	public CustomerDto Customer { get; set; }
-	public DateTime ShippingDate { get; set; }
+    public Guid Id { get; set; }
+    public List<ProductDto> Products { get; set; }
+    public CustomerDto Customer { get; set; }
+    public DateTime ShippingDate { get; set; }
 }

@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\Orders\CancelOrder\" />
     <Folder Include="Endpoints\Orders\AddToOrder\" />
     <Folder Include="Endpoints\Orders\RemoveFromOrder\" />
   </ItemGroup>

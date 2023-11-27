@@ -14,130 +14,130 @@ namespace Tests.Handlers.Orders;
 
 public class PlaceOrder_Handler_Tests
 {
-	private readonly PlaceOrderHandler _sut;
-	private readonly IUnitOfWork _fakeUnitOfWork;
-	private readonly PlaceOrderRequest _dummyRequest;
+    private readonly PlaceOrderHandler _sut;
+    private readonly IUnitOfWork _fakeUnitOfWork;
+    private readonly PlaceOrderRequest _dummyRequest;
 
-	public PlaceOrder_Handler_Tests()
-	{
-		_fakeUnitOfWork = A.Fake<IUnitOfWork>();
-		_dummyRequest = A.Dummy<PlaceOrderRequest>();
-		_dummyRequest.UnitOfWork = _fakeUnitOfWork;
-		_sut = new PlaceOrderHandler();
-	}
+    public PlaceOrder_Handler_Tests()
+    {
+        _fakeUnitOfWork = A.Fake<IUnitOfWork>();
+        _dummyRequest = A.Dummy<PlaceOrderRequest>();
+        _dummyRequest.UnitOfWork = _fakeUnitOfWork;
+        _sut = new PlaceOrderHandler();
+    }
 
-	[Fact]
-	public async Task Handle_WhenCalled_With_ValidCart_ShouldReturn_Ok()
-	{
-		// Arrange
-		var cart = CartGenerator.GenerateCartWith3Items();
-		_dummyRequest.Cart = cart;
+    [Fact]
+    public async Task Handle_WhenCalled_With_ValidCart_ShouldReturn_Ok()
+    {
+        // Arrange
+        var cart = CartGenerator.GenerateCartWith3Items();
+        _dummyRequest.Cart = cart;
 
-		// Act
-		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+        // Act
+        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
-		// Assert
-		result.Should().BeOfType<Ok>();
-	}
-	
-	[Fact]
-	public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_SaveChangesAsync()
-	{
-		// Arrange
-		var cart = CartGenerator.GenerateCartWith3Items();
-		_dummyRequest.Cart = cart;
+        // Assert
+        result.Should().BeOfType<Ok>();
+    }
 
-		// Act
-		await _sut.Handle(_dummyRequest, CancellationToken.None);
+    [Fact]
+    public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_SaveChangesAsync()
+    {
+        // Arrange
+        var cart = CartGenerator.GenerateCartWith3Items();
+        _dummyRequest.Cart = cart;
 
-		// Assert
-		A.CallTo(() => _fakeUnitOfWork.SaveChangesAsync()).MustHaveHappenedOnceExactly();
-	}
+        // Act
+        await _sut.Handle(_dummyRequest, CancellationToken.None);
 
-	[Fact]
-	public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_GetAsync_For_Customer()
-	{
-		// Arrange
-		var cart = CartGenerator.GenerateCartWith3Items();
-		_dummyRequest.Cart = cart;
+        // Assert
+        A.CallTo(() => _fakeUnitOfWork.SaveChangesAsync()).MustHaveHappenedOnceExactly();
+    }
 
-		// Act
-		await _sut.Handle(_dummyRequest, CancellationToken.None);
+    [Fact]
+    public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_GetAsync_For_Customer()
+    {
+        // Arrange
+        var cart = CartGenerator.GenerateCartWith3Items();
+        _dummyRequest.Cart = cart;
 
-		// Assert
-		A.CallTo(() => _fakeUnitOfWork.Customers.GetAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
-	}
+        // Act
+        await _sut.Handle(_dummyRequest, CancellationToken.None);
 
-	[Fact]
-	public async Task Handle_WhenCalled_With_Cart_WithInvalidCustomerId_ShouldReturn_NotFound()
-	{
-		// Arrange
-		var cart = CartGenerator.GenerateCartWith3Items();
-		cart.CustomerId = Guid.Empty;
-		_dummyRequest.Cart = cart;
-		A.CallTo(() => _fakeUnitOfWork.Customers.GetAsync(cart.CustomerId)).Returns((Customer?)null);
+        // Assert
+        A.CallTo(() => _fakeUnitOfWork.Customers.GetAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
+    }
 
-		// Act
-		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+    [Fact]
+    public async Task Handle_WhenCalled_With_Cart_WithInvalidCustomerId_ShouldReturn_NotFound()
+    {
+        // Arrange
+        var cart = CartGenerator.GenerateCartWith3Items();
+        cart.CustomerId = Guid.Empty;
+        _dummyRequest.Cart = cart;
+        A.CallTo(() => _fakeUnitOfWork.Customers.GetAsync(cart.CustomerId)).Returns((Customer?)null);
 
-		// Assert
-		result.Should().BeOfType<NotFound>();
-	}
+        // Act
+        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
-	[Fact]
-	public async Task Handle_WhenCalled_With_Cart_WithAnyInvalidProductId_ShouldReturn_NotFound()
-	{
-		// Arrange
-		var cart = CartGenerator.GenerateCartWith3Items();
-		_dummyRequest.Cart = cart;
-		A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(A<Guid>._)).Returns((Product?)null);
+        // Assert
+        result.Should().BeOfType<NotFound>();
+    }
 
-		// Act
-		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+    [Fact]
+    public async Task Handle_WhenCalled_With_Cart_WithAnyInvalidProductId_ShouldReturn_NotFound()
+    {
+        // Arrange
+        var cart = CartGenerator.GenerateCartWith3Items();
+        _dummyRequest.Cart = cart;
+        A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(A<Guid>._)).Returns((Product?)null);
 
-		// Assert
-		result.Should().BeOfType<NotFound>();
-	}
+        // Act
+        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
-	[Fact]
-	public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_GetAsync_For_Each_Product()
-	{
-		// Arrange
-		var cart = CartGenerator.GenerateCartWith3Items();
-		_dummyRequest.Cart = cart;
+        // Assert
+        result.Should().BeOfType<NotFound>();
+    }
 
-		// Act
-		await _sut.Handle(_dummyRequest, CancellationToken.None);
+    [Fact]
+    public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_GetAsync_For_Each_Product()
+    {
+        // Arrange
+        var cart = CartGenerator.GenerateCartWith3Items();
+        _dummyRequest.Cart = cart;
 
-		// Assert
-		A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(A<Guid>._)).MustHaveHappened(3, Times.Exactly);
-	}
+        // Act
+        await _sut.Handle(_dummyRequest, CancellationToken.None);
 
-	[Fact]
-	public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_AddAsync_For_Order()
-	{
-		// Arrange
-		var cart = CartGenerator.GenerateCartWith3Items();
-		_dummyRequest.Cart = cart;
+        // Assert
+        A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(A<Guid>._)).MustHaveHappened(3, Times.Exactly);
+    }
 
-		// Act
-		await _sut.Handle(_dummyRequest, CancellationToken.None);
+    [Fact]
+    public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_AddAsync_For_Order()
+    {
+        // Arrange
+        var cart = CartGenerator.GenerateCartWith3Items();
+        _dummyRequest.Cart = cart;
 
-		// Assert
-		A.CallTo(() => _fakeUnitOfWork.Orders.AddAsync(A<Order>._)).MustHaveHappenedOnceExactly();
-	}
+        // Act
+        await _sut.Handle(_dummyRequest, CancellationToken.None);
 
-	[Fact]
-	public async Task PlaceOrderHandler_Inherits_From_IRequestHandler()
-	{
-		// Arrange
+        // Assert
+        A.CallTo(() => _fakeUnitOfWork.Orders.AddAsync(A<Order>._)).MustHaveHappenedOnceExactly();
+    }
 
-		// Act
+    [Fact]
+    public async Task PlaceOrderHandler_Inherits_From_IRequestHandler()
+    {
+        // Arrange
 
-		// Assert
-		_sut.Should().BeAssignableTo<IRequestHandler<PlaceOrderRequest, IResult>>();
+        // Act
 
-	}
+        // Assert
+        _sut.Should().BeAssignableTo<IRequestHandler<PlaceOrderRequest, IResult>>();
+
+    }
 
 
 }

@@ -13,8 +13,8 @@ namespace Tests.Handlers.Products;
 public class GetProduct_Handler_Tests
 {
     private readonly GetProductHandler _sut;
-	private readonly Fake<IMapper> _fakeMapper;
-	private readonly IUnitOfWork _fakeUnitOfWork;
+    private readonly Fake<IMapper> _fakeMapper;
+    private readonly IUnitOfWork _fakeUnitOfWork;
     private readonly GetProductRequest _dummyRequest;
 
     public GetProduct_Handler_Tests()
@@ -24,7 +24,7 @@ public class GetProduct_Handler_Tests
         _dummyRequest = A.Dummy<GetProductRequest>();
         _dummyRequest.UnitOfWork = _fakeUnitOfWork;
         _sut = new GetProductHandler(_fakeMapper.FakedObject);
-        
+
     }
 
     [Fact]
@@ -33,22 +33,22 @@ public class GetProduct_Handler_Tests
         // Arrange
         var guid = Guid.NewGuid();
         _dummyRequest.ProductId = guid;
-		A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(_dummyRequest.ProductId)).Returns(A.Dummy<Product>());
+        A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(_dummyRequest.ProductId)).Returns(A.Dummy<Product>());
 
         // Act
         var result = _sut.Handle(_dummyRequest, CancellationToken.None).Result;
 
         // Assert
         result.Should().BeOfType<Ok<ProductDto>>();
-        
+
     }
 
     [Fact]
     public void Handle_WhenGiven_ValidProductId_ShouldReturn_SingleProductDto_WithMatchingId()
     {
-		// Arrange
-		var guid = Guid.NewGuid();
-		_dummyRequest.ProductId = guid;
+        // Arrange
+        var guid = Guid.NewGuid();
+        _dummyRequest.ProductId = guid;
 
         var productFromDb = A.Dummy<Product>();
         productFromDb.Id = guid;
@@ -56,13 +56,13 @@ public class GetProduct_Handler_Tests
         var productDto = A.Dummy<ProductDto>();
         productDto.Id = guid;
 
-		A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(_dummyRequest.ProductId)).Returns(productFromDb);
+        A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(_dummyRequest.ProductId)).Returns(productFromDb);
         A.CallTo(() => _fakeMapper.FakedObject.Map<ProductDto>(productFromDb)).Returns(productDto);
 
-		// Act
-		var result = _sut.Handle(_dummyRequest, CancellationToken.None).Result;
+        // Act
+        var result = _sut.Handle(_dummyRequest, CancellationToken.None).Result;
 
-		// Assert
+        // Assert
         result.Should().BeOfType<Ok<ProductDto>>();
         result.As<Ok<ProductDto>>().Value.Id.Should().Be(guid);
     }
@@ -73,14 +73,14 @@ public class GetProduct_Handler_Tests
         // Arrange
         var guid = Guid.NewGuid();
         _dummyRequest.ProductId = guid;
-		A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(_dummyRequest.ProductId)).Returns((Product?)null);
+        A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(_dummyRequest.ProductId)).Returns((Product?)null);
 
         // Act
-		var result = _sut.Handle(_dummyRequest, CancellationToken.None).Result;
+        var result = _sut.Handle(_dummyRequest, CancellationToken.None).Result;
 
-		// Assert
-		result.Should().BeOfType<NotFound>();
-        
+        // Assert
+        result.Should().BeOfType<NotFound>();
+
     }
 
- }
+}

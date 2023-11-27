@@ -5,8 +5,8 @@ namespace Server.Endpoints.Orders.PlaceOrder;
 
 public class PlaceOrderRequest : IHttpRequest
 {
-	public IUnitOfWork UnitOfWork { get; set; }
+    public IUnitOfWork UnitOfWork { get; set; }
 
-	public CustomerCart Cart { get; set; }
-	
+    public CustomerCart Cart { get; set; }
+
 }

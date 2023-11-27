@@ -15,7 +15,7 @@ public class CustomerRepository : ICustomerRepository
 
     public async Task<Customer?> GetAsync(Guid id)
     {
-       return await _context.Customers.FindAsync(id);
+        return await _context.Customers.FindAsync(id);
     }
 
     public async Task<IEnumerable<Customer>> GetAllAsync()

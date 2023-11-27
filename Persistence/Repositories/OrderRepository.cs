@@ -15,15 +15,18 @@ public class OrderRepository : IOrderRepository
     }
     public async Task<Order?> GetAsync(Guid id)
     {
-	    throw new NotImplementedException();
+        return await _context.Orders
+            .Include(o => o.Customer)
+            .Include(o => o.Products)
+            .FirstOrDefaultAsync(o => o.Id == id);
     }
 
-	public async Task<IEnumerable<Order>> GetAllAsync()
+    public async Task<IEnumerable<Order>> GetAllAsync()
     {
         return await _context.Orders
-	        .Include(o => o.Customer)
-	        .Include(o => o.Products)
-	        .ToListAsync();
+            .Include(o => o.Customer)
+            .Include(o => o.Products)
+            .ToListAsync();
     }
 
     public async Task AddAsync(Order entity)
@@ -38,15 +41,15 @@ public class OrderRepository : IOrderRepository
 
     public async Task DeleteAsync(Order entity)
     {
-	    _context.Orders.Remove(entity);
+        _context.Orders.Remove(entity);
     }
 
     public async Task<IEnumerable<Order>> GetOrdersForCustomerAsync(Guid customerId)
     {
-	    return await _context.Orders
-		    .Include(o => o.Customer)
-		    .Include(o => o.Products)
-		    .Where(o => o.Customer.Id == customerId)
-		    .ToListAsync();
+        return await _context.Orders
+            .Include(o => o.Customer)
+            .Include(o => o.Products)
+            .Where(o => o.Customer.Id == customerId)
+            .ToListAsync();
     }
 }
