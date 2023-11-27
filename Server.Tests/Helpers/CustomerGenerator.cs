@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Shared.CustomerDtos;
 
 namespace Tests.Helpers;
 
@@ -9,7 +10,17 @@ public static class CustomerGenerator
 		return new Customer()
 		{
 			Id = Guid.NewGuid(),
-			Name = "Test Customer",
+			Email = "Test@Customer.com",
+			Password = "Test Password"
+		};
+	}
+
+	public static CustomerDto GenerateCustomerDto()
+	{
+		return new CustomerDto()
+		{
+			Id = Guid.NewGuid(),
+			Name = "Test@Customer.com",
 			Password = "Test Password"
 		};
 	}

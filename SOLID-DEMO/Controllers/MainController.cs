@@ -26,13 +26,13 @@ public class MainController : ControllerBase
     [HttpGet("/customers/{email}")]
     public async Task<IActionResult> GetCustomer(string email)
     {
-        return Ok(await _shopContext.Customers.FirstOrDefaultAsync(c => c.Name.Equals(email)));
+        return Ok(await _shopContext.Customers.FirstOrDefaultAsync(c => c.Email.Equals(email)));
     }
 
     [HttpPost("/customers/register")]
     public async Task<IActionResult> RegisterUser(Customer customer)
     {
-        if (!customer.Name.Contains("@"))
+        if (!customer.Email.Contains("@"))
             throw new ValidationException("Email is not an email");
         await _shopContext.AddAsync(customer);
         await _shopContext.SaveChangesAsync();
@@ -42,7 +42,7 @@ public class MainController : ControllerBase
     [HttpPost("/customers/login")]
     public async Task<IActionResult> LoginCustomer(string email, string password)
     {
-        var customer = await _shopContext.Customers.FirstOrDefaultAsync(c => c.Name.Equals(email) && c.Password.Equals(password));
+        var customer = await _shopContext.Customers.FirstOrDefaultAsync(c => c.Email.Equals(email) && c.Password.Equals(password));
         if (customer is not null)
         {
             return Ok();

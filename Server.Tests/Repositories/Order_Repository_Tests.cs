@@ -159,7 +159,7 @@ public class Order_Repository_Tests
 		OrderDatabase.SeedDatabaseWithMultipleOrders(_context, orders);
 
 		var orderForDifferentCustomer = OrderGenerator.GenerateOrder();
-		orderForDifferentCustomer.Customer = new Customer(){Id = Guid.NewGuid(), Name = "New", Password = "123"};
+		orderForDifferentCustomer.Customer = new Customer(){Id = Guid.NewGuid(), Email = "new@example.com", Password = "123"};
 		OrderDatabase.SeedDatabaseWithSingleOrder(_context, orderForDifferentCustomer);
 
 		// Act
@@ -222,7 +222,7 @@ public class Order_Repository_Tests
 
 		// Act
 		
-		order.Customer.Name = "New Name";
+		order.Customer.Email = "newEmail@example.com";
 		order.Products.AddRange(new List<Product>
 		{
 			new()
