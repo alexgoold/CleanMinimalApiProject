@@ -105,7 +105,19 @@ public class Order_Repository_Tests
 
 	#region GetOrdersForCustomer
 
-	
+	[Fact]
+	public async Task GetOrdersForCustomer_WhenCalled_WithCustomerId_ShouldReturn_ListOfOrders()
+	{
+		// Arrange
+		var order = OrderGenerator.GenerateOrder();
+		OrderDatabase.SeedDatabaseWithSingleOrder(_context, order);
+
+		// Act
+		var result = await _sut.GetOrdersForCustomerAsync(order.Customer.Id);
+
+		// Assert
+		result.Should().BeOfType<List<Order>>();
+	}
 
 	#endregion
 
