@@ -8,9 +8,9 @@ namespace Server.Extensions.ProductEndpoints
     {
         public static WebApplication MapProductEndpoints(this WebApplication app)
         {
-            app.MediateGet<GetProductRequest>("getProduct");
-            app.MediateGet<GetAllProductsRequest>("getAllProducts");
-            app.MediatePost<AddProductRequest>("addProduct");
+            app.MediateGet<GetProductRequest>("products/getProduct");
+            app.MediateGet<GetAllProductsRequest>("products/getAllProducts");
+            app.MediatePost<AddProductRequest>("products/addProduct");
             return app;
         }
     }

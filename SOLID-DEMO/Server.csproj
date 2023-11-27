@@ -26,4 +26,13 @@
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Endpoints\Orders\GetAll\" />
+    <Folder Include="Endpoints\Orders\GetAllByCustomerId\" />
+    <Folder Include="Endpoints\Orders\CancelOrder\" />
+    <Folder Include="Endpoints\Orders\AddToOrder\" />
+    <Folder Include="Endpoints\Orders\RemoveFromOrder\" />
+    <Folder Include="Endpoints\Orders\PlaceOrder\" />
+  </ItemGroup>
+
 </Project>
