@@ -1,5 +1,6 @@
 ﻿using Application.UnitOfWork;
 using AutoMapper;
+using Domain;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -37,6 +38,20 @@ public class AddProduct_Handler_Tests
 
 		// Assert
 		result.Should().BeOfType<Ok>();
+	}
+
+	[Fact]
+	public async Task Handle_WhenCalled_WithValidProductDto_Should_Call_Mapper()
+	{
+		// Arrange
+		var productDto = ProductGenerator.GenerateProductDto();
+		_dummyRequest.ProductDto = productDto;
+
+		// Act
+		await _sut.Handle(_dummyRequest, CancellationToken.None);
+
+		// Assert
+		A.CallTo(() => _fakeMapper.FakedObject.Map<Product>(productDto)).MustHaveHappenedOnceExactly();
 	}
 
 
