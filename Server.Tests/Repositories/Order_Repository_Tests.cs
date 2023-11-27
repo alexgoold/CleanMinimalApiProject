@@ -169,10 +169,26 @@ public class Order_Repository_Tests
 		allOrders.Should().HaveCount(4);
 		result.Should().HaveCount(3);
 	}
-	
+
 	#endregion
 
+	#region AddOrder
 
+	[Fact]
+	public async Task AddOrder_WhenCalled_WithValidOrder_ShouldAddOrderToDb()
+	{
+		// Arrange
+		var order = OrderGenerator.GenerateOrder();
+
+		// Act
+		await _sut.AddAsync(order);
+
+		// Assert
+		var result = await _sut.GetAllAsync();
+		result.Should().HaveCount(1);
+	}
+
+	#endregion
 
 
 
