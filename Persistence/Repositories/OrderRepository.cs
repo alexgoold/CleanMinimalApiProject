@@ -28,7 +28,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task AddAsync(Order entity)
     {
-        throw new NotImplementedException();
+        await _context.Orders.AddAsync(entity);
     }
 
     public async Task UpdateAsync(Order entity)

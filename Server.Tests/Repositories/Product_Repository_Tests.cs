@@ -140,10 +140,10 @@ namespace Tests.Repositories
         {
             // Arrange
             var product = ProductGenerator.GenerateProduct();
-            ProductDatabase.SeedDatabaseWithSingleProduct(_context, product);
 
             // Act
             await _sut.AddAsync(product);
+            await _context.SaveChangesAsync();
 
             // Assert
             _context.Products.Should().ContainEquivalentOf(product);

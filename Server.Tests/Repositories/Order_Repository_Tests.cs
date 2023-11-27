@@ -180,12 +180,32 @@ public class Order_Repository_Tests
 		// Arrange
 		var order = OrderGenerator.GenerateOrder();
 
+
 		// Act
 		await _sut.AddAsync(order);
+		await _context.SaveChangesAsync();
 
 		// Assert
-		var result = await _sut.GetAllAsync();
-		result.Should().HaveCount(1);
+		_context.Orders.Should().Contain(order);
+	}
+
+	#endregion
+
+	#region DeleteOrder
+
+	[Fact]
+	public async Task DeleteOrder_WhenCalled_WithValidOrder_ShouldDeleteOrderFromDb()
+	{
+		// Arrange
+		var order = OrderGenerator.GenerateOrder();
+		OrderDatabase.SeedDatabaseWithSingleOrder(_context, order);
+
+		// Act
+		await _sut.DeleteAsync(order);
+		await _context.SaveChangesAsync();
+
+		// Assert
+		_context.Orders.Should().NotContain(order);
 	}
 
 	#endregion
