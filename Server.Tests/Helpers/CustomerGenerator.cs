@@ -20,7 +20,7 @@ public static class CustomerGenerator
         return new CustomerDto()
         {
             Id = Guid.NewGuid(),
-            Name = "Test@Customer.com",
+            Email = "Test@Customer.com",
             Password = "Test Password"
         };
     }
