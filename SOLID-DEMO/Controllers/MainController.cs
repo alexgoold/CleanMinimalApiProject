@@ -16,14 +16,7 @@ public class MainController : ControllerBase
     {
         _shopContext = shopContext;
     }
-
- 
-    [HttpGet("/customers/{email}")]
-    public async Task<IActionResult> GetCustomer(string email)
-    {
-        return Ok(await _shopContext.Customers.FirstOrDefaultAsync(c => c.Email.Equals(email)));
-    }
-
+    
     [HttpPost("/customers/register")]
     public async Task<IActionResult> RegisterUser(Customer customer)
     {
