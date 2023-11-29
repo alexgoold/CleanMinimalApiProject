@@ -1,5 +1,4 @@
-﻿using Domain;
-using MediatR;
+﻿using MediatR;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Server.Endpoints.Orders.RemoveFromOrder;

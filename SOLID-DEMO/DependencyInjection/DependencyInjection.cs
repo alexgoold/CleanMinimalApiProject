@@ -1,5 +1,4 @@
-﻿using Application;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Application.UnitOfWork;
 using Persistence.Repositories;
 using System.Reflection;

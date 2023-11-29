@@ -1,5 +1,4 @@
 ﻿using Application.UnitOfWork;
-using Shared;
 using Shared.OrderDtos;
 
 namespace Server.Endpoints.Orders.PlaceOrder;

@@ -1,6 +1,4 @@
-﻿using Shared.ProductsDtos;
-
-namespace Shared;
+﻿namespace Shared;
 
 public class OrderItemDto
 {

@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Server.Endpoints.Orders.CancelOrder;
-using Server.Endpoints.Orders.PlaceOrder;
 using Xunit;
 
 namespace Tests.Handlers.Orders;

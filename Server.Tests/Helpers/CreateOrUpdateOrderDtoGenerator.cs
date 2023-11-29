@@ -1,6 +1,4 @@
-﻿using Domain;
-using Shared;
-using Shared.OrderDtos;
+﻿using Shared.OrderDtos;
 
 namespace Tests.Helpers;
 

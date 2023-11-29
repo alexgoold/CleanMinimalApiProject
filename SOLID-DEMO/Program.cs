@@ -1,6 +1,7 @@
 using Infrastructure.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Server.DependencyInjection;
+using Server.Extensions.CustomerEndpoints;
 using Server.Extensions.OrderEndpoints;
 using Server.Extensions.ProductEndpoints;
 
@@ -39,5 +40,6 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapProductEndpoints();
 app.MapOrderEndpoints();
+app.MapCustomerEndpoints();
 
 app.Run();

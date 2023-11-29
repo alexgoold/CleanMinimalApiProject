@@ -6,8 +6,6 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Server.Endpoints.Orders.AddToOrder;
-using Server.Endpoints.Orders.PlaceOrder;
-using Shared;
 using Tests.Helpers;
 using Xunit;
 

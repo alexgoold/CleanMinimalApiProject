@@ -1,5 +1,4 @@
 ﻿using Shared.CustomerDtos;
-using Shared.ProductsDtos;
 
 namespace Shared.OrderDtos;
 

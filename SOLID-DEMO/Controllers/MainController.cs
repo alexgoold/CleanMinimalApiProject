@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using Domain;
 using Infrastructure.DataContext;
-using Shared;
-using Shared.OrderDtos;
 
 namespace Server.Controllers;
 
@@ -19,12 +17,7 @@ public class MainController : ControllerBase
         _shopContext = shopContext;
     }
 
-    [HttpGet("/customers")]
-    public async Task<IActionResult> GetCustomers()
-    {
-        return Ok(await _shopContext.Customers.ToListAsync());
-    }
-
+ 
     [HttpGet("/customers/{email}")]
     public async Task<IActionResult> GetCustomer(string email)
     {
