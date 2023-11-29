@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain;
 using Infrastructure.DataContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Repositories;
 
@@ -20,21 +21,27 @@ public class CustomerRepository : ICustomerRepository
 
     public async Task<IEnumerable<Customer>> GetAllAsync()
     {
-        throw new NotImplementedException();
+	    return await _context.Customers.ToListAsync();
     }
 
     public async Task AddAsync(Customer entity)
     {
-        throw new NotImplementedException();
+        await _context.Customers.AddAsync(entity);
     }
 
     public async Task UpdateAsync(Customer entity)
     {
-        throw new NotImplementedException();
+        _context.Customers.Update(entity);
     }
 
     public async Task DeleteAsync(Customer entity)
     {
-        throw new NotImplementedException();
+	    _context.Customers.Remove(entity);
     }
+
+    public async Task<Customer?> GetByEmailAsync(string email)
+    {
+	    return await _context.Customers.FirstOrDefaultAsync(c => c.Email.Equals(email));
+    }
+
 }
