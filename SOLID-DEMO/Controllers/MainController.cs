@@ -63,31 +63,4 @@ public class MainController : ControllerBase
         return Ok();
     }
     
-
-    [HttpPatch("order/remove/{id}")]
-    public async Task<IActionResult> RemoveFromOrder(CreateOrUpdateOrderDto itemsToRemove, Guid id)
-    {
-        var customer = await _shopContext.Customers.FirstOrDefaultAsync(c => c.Id.Equals(itemsToRemove.CustomerId));
-        if (customer is null)
-        {
-            return BadRequest();
-        }
-
-        var order = await _shopContext.Orders.Include(o => o.Customer.Id == customer.Id).Include(o => o.Products).FirstOrDefaultAsync(o => o.Id == id);
-        order.ShippingDate = DateTime.Now.AddDays(5);
-
-        //foreach (var prodId in itemsToRemove.ProductIds)
-        //{
-        //    var prod = order.Products.FirstOrDefault(p => p.Id == prodId);
-        //    if (prod is null)
-        //    {
-        //        continue;
-        //    }
-        //    order.Products.Remove(prod);
-        //}
-
-        await _shopContext.SaveChangesAsync();
-
-        return Ok();
-    }
 }

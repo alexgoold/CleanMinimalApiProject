@@ -31,7 +31,7 @@ public class AddToOrder_Handler_Tests
 	public async Task Handle_WhenCalled_With_ValidCart_ShouldReturn_Ok()
 	{
 		// Arrange
-		var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
+		var cart = CreateOrUpdateOrderDtoGenerator.GenerateCartWith3Items();
 		_dummyRequest.Cart = cart;
 
 		// Act
@@ -45,7 +45,7 @@ public class AddToOrder_Handler_Tests
 	public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_SaveChangesAsync()
 	{
 		// Arrange
-		var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
+		var cart = CreateOrUpdateOrderDtoGenerator.GenerateCartWith3Items();
 		_dummyRequest.Cart = cart;
 
 		// Act
@@ -60,7 +60,7 @@ public class AddToOrder_Handler_Tests
 	public async Task Handle_WhenCalled_With_Cart_WithInvalidCustomerId_ShouldReturn_NotFound()
 	{
 		// Arrange
-		var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
+		var cart = CreateOrUpdateOrderDtoGenerator.GenerateCartWith3Items();
 		_dummyRequest.Cart = cart;
 		A.CallTo(() => _fakeUnitOfWork.Customers.GetAsync(A<Guid>._)).Returns((Customer)null);
 
@@ -75,7 +75,7 @@ public class AddToOrder_Handler_Tests
 	public async Task Handle_WhenCalled_With_Cart_WithAnyInvalidProductId_ShouldReturn_NotFound()
 	{
 		// Arrange
-		var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
+		var cart = CreateOrUpdateOrderDtoGenerator.GenerateCartWith3Items();
 		_dummyRequest.Cart = cart;
 		A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(A<Guid>._)).Returns(Task.FromResult<Product?>(null));
 
@@ -91,7 +91,7 @@ public class AddToOrder_Handler_Tests
 	public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_GetAsync_For_Each_Product()
 	{
 		// Arrange
-		var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
+		var cart = CreateOrUpdateOrderDtoGenerator.GenerateCartWith3Items();
 		_dummyRequest.Cart = cart;
 
 		// Act
@@ -105,7 +105,7 @@ public class AddToOrder_Handler_Tests
 	public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_UpdateAsync_For_Order()
 	{
 		// Arrange
-		var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
+		var cart = CreateOrUpdateOrderDtoGenerator.GenerateCartWith3Items();
 		_dummyRequest.Cart = cart;
 
 

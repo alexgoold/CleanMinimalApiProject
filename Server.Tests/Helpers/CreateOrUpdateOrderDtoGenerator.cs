@@ -4,7 +4,7 @@ using Shared.OrderDtos;
 
 namespace Tests.Helpers;
 
-public static class PlaceOrderDtoGenerator
+public static class CreateOrUpdateOrderDtoGenerator
 {
     public static CreateOrUpdateOrderDto GenerateCartWith3Items()
     {
