@@ -1,13 +1,14 @@
 ﻿using Domain;
 using Shared;
+using Shared.OrderDtos;
 
 namespace Tests.Helpers;
 
-public static class CartGenerator
+public static class PlaceOrderDtoGenerator
 {
-    public static CustomerCart GenerateCartWith3Items()
+    public static PlaceOrderDto GenerateCartWith3Items()
     {
-        return new CustomerCart()
+        return new PlaceOrderDto()
         {
             CustomerId = Guid.NewGuid(),
             ProductIds = new List<Guid>()

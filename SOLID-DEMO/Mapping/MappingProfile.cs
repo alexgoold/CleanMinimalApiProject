@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain;
+using Shared;
 using Shared.CustomerDtos;
 using Shared.OrderDtos;
 using Shared.ProductsDtos;
@@ -16,6 +17,9 @@ namespace Server.Mapping
             CreateMap<OrderDto, Order>();
             CreateMap<Customer, CustomerDto>();
             CreateMap<CustomerDto, Customer>();
+            CreateMap<OrderItemDto, OrderItem>();
+            CreateMap<OrderItem, OrderItemDto>();
+
         }
     }
 }

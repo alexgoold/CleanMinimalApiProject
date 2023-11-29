@@ -1,4 +1,5 @@
-﻿using Server.Endpoints.Orders.CancelOrder;
+﻿using Server.Endpoints.Orders.AddToOrder;
+using Server.Endpoints.Orders.CancelOrder;
 using Server.Endpoints.Orders.GetAll;
 using Server.Endpoints.Orders.GetOrdersByCustomerId;
 using Server.Endpoints.Orders.PlaceOrder;
@@ -13,6 +14,7 @@ public static class WebApplicationOrderEndpointExtensions
         app.MediateGet<GetOrdersByCustomerIdRequest>("orders/getOrderByCustomerId");
         app.MediatePost<PlaceOrderRequest>("orders/placeOrder");
         app.MediateDelete<CancelOrderRequest>("orders/cancelOrder");
+        app.MediatePut<AddToOrderRequest>("orders/addToOrder");
         return app;
     }
 }

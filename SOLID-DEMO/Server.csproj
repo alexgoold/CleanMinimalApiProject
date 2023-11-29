@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\Orders\AddToOrder\" />
     <Folder Include="Endpoints\Orders\RemoveFromOrder\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

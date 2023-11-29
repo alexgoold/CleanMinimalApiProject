@@ -6,6 +6,7 @@ using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Server.Endpoints.Orders.PlaceOrder;
 using Tests.Helpers;
 using Xunit;
@@ -30,7 +31,7 @@ public class PlaceOrder_Handler_Tests
     public async Task Handle_WhenCalled_With_ValidCart_ShouldReturn_Ok()
     {
         // Arrange
-        var cart = CartGenerator.GenerateCartWith3Items();
+        var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
         _dummyRequest.Cart = cart;
 
         // Act
@@ -44,7 +45,7 @@ public class PlaceOrder_Handler_Tests
     public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_SaveChangesAsync()
     {
         // Arrange
-        var cart = CartGenerator.GenerateCartWith3Items();
+        var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
         _dummyRequest.Cart = cart;
 
         // Act
@@ -58,7 +59,7 @@ public class PlaceOrder_Handler_Tests
     public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_GetAsync_For_Customer()
     {
         // Arrange
-        var cart = CartGenerator.GenerateCartWith3Items();
+        var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
         _dummyRequest.Cart = cart;
 
         // Act
@@ -72,7 +73,7 @@ public class PlaceOrder_Handler_Tests
     public async Task Handle_WhenCalled_With_Cart_WithInvalidCustomerId_ShouldReturn_NotFound()
     {
         // Arrange
-        var cart = CartGenerator.GenerateCartWith3Items();
+        var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
         cart.CustomerId = Guid.Empty;
         _dummyRequest.Cart = cart;
         A.CallTo(() => _fakeUnitOfWork.Customers.GetAsync(cart.CustomerId)).Returns((Customer?)null);
@@ -88,7 +89,7 @@ public class PlaceOrder_Handler_Tests
     public async Task Handle_WhenCalled_With_Cart_WithAnyInvalidProductId_ShouldReturn_NotFound()
     {
         // Arrange
-        var cart = CartGenerator.GenerateCartWith3Items();
+        var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
         _dummyRequest.Cart = cart;
         A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(A<Guid>._)).Returns((Product?)null);
 
@@ -103,7 +104,7 @@ public class PlaceOrder_Handler_Tests
     public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_GetAsync_For_Each_Product()
     {
         // Arrange
-        var cart = CartGenerator.GenerateCartWith3Items();
+        var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
         _dummyRequest.Cart = cart;
 
         // Act
@@ -117,7 +118,7 @@ public class PlaceOrder_Handler_Tests
     public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_AddAsync_For_Order()
     {
         // Arrange
-        var cart = CartGenerator.GenerateCartWith3Items();
+        var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
         _dummyRequest.Cart = cart;
 
         // Act

@@ -13,4 +13,13 @@ public class ShopContext : DbContext
 
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+
+	 
+    }
+
+    
+
+
 }
