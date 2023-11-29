@@ -1,6 +1,6 @@
 ﻿namespace Shared.OrderDtos;
 
-public class PlaceOrderDto
+public class CreateOrUpdateOrderDto
 {
 	public Guid CustomerId { get; set; }
 	public List<Guid> ProductIds { get; set; }

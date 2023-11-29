@@ -6,9 +6,9 @@ namespace Tests.Helpers;
 
 public static class PlaceOrderDtoGenerator
 {
-    public static PlaceOrderDto GenerateCartWith3Items()
+    public static CreateOrUpdateOrderDto GenerateCartWith3Items()
     {
-        return new PlaceOrderDto()
+        return new CreateOrUpdateOrderDto()
         {
             CustomerId = Guid.NewGuid(),
             ProductIds = new List<Guid>()

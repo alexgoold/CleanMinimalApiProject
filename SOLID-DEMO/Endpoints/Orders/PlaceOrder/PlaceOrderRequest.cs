@@ -8,6 +8,6 @@ public class PlaceOrderRequest : IHttpRequest
 {
     public IUnitOfWork UnitOfWork { get; set; }
 
-    public PlaceOrderDto Cart { get; set; }
+    public CreateOrUpdateOrderDto Cart { get; set; }
 
 }

@@ -63,14 +63,9 @@ public class MainController : ControllerBase
         return Ok();
     }
     
-    [HttpPatch("order/add/{id}")]
-    public async Task<IActionResult> AddToOrder(PlaceOrderDto itemsToAdd, Guid id)
-    {
-        return Ok();
-    }
 
     [HttpPatch("order/remove/{id}")]
-    public async Task<IActionResult> RemoveFromOrder(PlaceOrderDto itemsToRemove, Guid id)
+    public async Task<IActionResult> RemoveFromOrder(CreateOrUpdateOrderDto itemsToRemove, Guid id)
     {
         var customer = await _shopContext.Customers.FirstOrDefaultAsync(c => c.Id.Equals(itemsToRemove.CustomerId));
         if (customer is null)
