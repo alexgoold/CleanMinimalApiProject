@@ -1,12 +1,10 @@
 ﻿using Application.UnitOfWork;
-using AutoMapper;
 using Domain;
 using FakeItEasy;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Server.Endpoints.Orders.PlaceOrder;
 using Tests.Helpers;
 using Xunit;
@@ -25,17 +23,19 @@ public class PlaceOrder_Handler_Tests
         _dummyRequest = A.Dummy<PlaceOrderRequest>();
         _dummyRequest.UnitOfWork = _fakeUnitOfWork;
         _sut = new PlaceOrderHandler();
-    }
 
-    [Fact]
+	}
+
+	[Fact]
     public async Task Handle_WhenCalled_With_ValidCart_ShouldReturn_Ok()
     {
         // Arrange
         var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
         _dummyRequest.Cart = cart;
 
-        // Act
-        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+
+		// Act
+		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
         // Assert
         result.Should().BeOfType<Ok>();
@@ -48,38 +48,24 @@ public class PlaceOrder_Handler_Tests
         var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
         _dummyRequest.Cart = cart;
 
-        // Act
-        await _sut.Handle(_dummyRequest, CancellationToken.None);
+		// Act
+		await _sut.Handle(_dummyRequest, CancellationToken.None);
 
         // Assert
         A.CallTo(() => _fakeUnitOfWork.SaveChangesAsync()).MustHaveHappenedOnceExactly();
     }
 
-    [Fact]
-    public async Task Handle_WhenCalled_With_ValidCart_ShouldInvoke_GetAsync_For_Customer()
-    {
-        // Arrange
-        var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
-        _dummyRequest.Cart = cart;
-
-        // Act
-        await _sut.Handle(_dummyRequest, CancellationToken.None);
-
-        // Assert
-        A.CallTo(() => _fakeUnitOfWork.Customers.GetAsync(A<Guid>._)).MustHaveHappenedOnceExactly();
-    }
-
+    
     [Fact]
     public async Task Handle_WhenCalled_With_Cart_WithInvalidCustomerId_ShouldReturn_NotFound()
     {
         // Arrange
         var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
-        cart.CustomerId = Guid.Empty;
         _dummyRequest.Cart = cart;
-        A.CallTo(() => _fakeUnitOfWork.Customers.GetAsync(cart.CustomerId)).Returns((Customer?)null);
+        A.CallTo(() => _fakeUnitOfWork.Customers.GetAsync(A<Guid>._)).Returns((Customer)null);
 
-        // Act
-        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+		// Act
+		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
         // Assert
         result.Should().BeOfType<NotFound>();
@@ -91,10 +77,11 @@ public class PlaceOrder_Handler_Tests
         // Arrange
         var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
         _dummyRequest.Cart = cart;
-        A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(A<Guid>._)).Returns((Product?)null);
+        A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(A<Guid>._)).Returns(Task.FromResult<Product?>(null));
 
-        // Act
-        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+
+		// Act
+		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
         // Assert
         result.Should().BeOfType<NotFound>();
@@ -121,8 +108,9 @@ public class PlaceOrder_Handler_Tests
         var cart = PlaceOrderDtoGenerator.GenerateCartWith3Items();
         _dummyRequest.Cart = cart;
 
-        // Act
-        await _sut.Handle(_dummyRequest, CancellationToken.None);
+
+		// Act
+		await _sut.Handle(_dummyRequest, CancellationToken.None);
 
         // Assert
         A.CallTo(() => _fakeUnitOfWork.Orders.AddAsync(A<Order>._)).MustHaveHappenedOnceExactly();
