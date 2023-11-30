@@ -11,9 +11,9 @@ public class Pbkdf2HashingStrategy : HashingStrategy
 	{
 		var salt = new byte[16];
 
-		var rng = new Random();
+		var random = new Random();
 
-		rng.NextBytes(salt);
+		random.NextBytes(salt);
 
 		var saltString = Convert.ToBase64String(salt);
 
