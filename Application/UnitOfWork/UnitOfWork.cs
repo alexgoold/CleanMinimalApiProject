@@ -20,12 +20,26 @@ public class UnitOfWork : IUnitOfWork
             _context.SaveChangesAsync();
     }
 
-    public void Dispose()
-    {
-        throw new NotImplementedException();
-    }
+	private bool _disposed;
 
-    public ICustomerRepository Customers { get; }
+	protected virtual void Dispose(bool disposing)
+	{
+		if (!_disposed)
+		{
+			if (disposing)
+			{
+				_context.Dispose();
+			}
+		}
+		_disposed = true;
+	}
+	public void Dispose()
+	{
+		Dispose(true);
+		GC.SuppressFinalize(this);
+	}
+
+	public ICustomerRepository Customers { get; }
     public IOrderRepository Orders { get; }
     public IProductRepository Products { get; }
 }
