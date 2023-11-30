@@ -24,14 +24,14 @@ public class Pbkdf2HashingStrategy : HashingStrategy
 
     public override bool VerifyPassword(string providedPassword, string hashedAndSaltedPassword)
     {
-        var parts = hashedAndSaltedPassword.Split(':');
-        if (parts.Length != 2)
+        var split = hashedAndSaltedPassword.Split(':');
+        if (split.Length != 2)
         {
             return false;
         }
 
-        var saltString = parts[0];
-        var hashedPassword = parts[1];
+        var saltString = split[0];
+        var hashedPassword = split[1];
 
         var salt = Convert.FromBase64String(saltString);
 
