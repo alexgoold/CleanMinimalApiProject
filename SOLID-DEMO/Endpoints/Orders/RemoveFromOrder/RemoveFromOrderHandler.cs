@@ -5,53 +5,53 @@ namespace Server.Endpoints.Orders.RemoveFromOrder;
 
 public class RemoveFromOrderHandler : IRequestHandler<RemoveFromOrderRequest, IResult>
 {
-	public async Task<IResult> Handle(RemoveFromOrderRequest request, CancellationToken none)
-	{
-		var order = await request.UnitOfWork.Orders.GetAsync(request.OrderId);
-		if (order == null)
-			return Results.NotFound();
+    public async Task<IResult> Handle(RemoveFromOrderRequest request, CancellationToken none)
+    {
+        var order = await request.UnitOfWork.Orders.GetAsync(request.OrderId);
+        if (order == null)
+            return Results.NotFound();
 
-		if (order.Products.IsNullOrEmpty())
-			return Results.BadRequest();
-		
-		foreach (var id in request.Cart.ProductIds)
-		{
-			var prod = await request.UnitOfWork.Products.GetAsync(id);
-			if (prod == null)
-				return Results.NotFound();
-		}
+        if (order.Products.IsNullOrEmpty())
+            return Results.BadRequest();
 
-		var distinctProductsInCartAndTheirQuantities = request.Cart.ProductIds
-			.Distinct()
-			.Select(id => new
-			{
-				ProductId = id,
-				Quantity = request.Cart.ProductIds.Count(p => p == id)
-			});
+        foreach (var id in request.Cart.ProductIds)
+        {
+            var prod = await request.UnitOfWork.Products.GetAsync(id);
+            if (prod == null)
+                return Results.NotFound();
+        }
 
-		foreach (var item in distinctProductsInCartAndTheirQuantities)
-		{
-			order.Products
-				.Where(p => p.ProductId == item.ProductId)
-				.ToList()
-				.ForEach(p => p.Quantity -= item.Quantity);
+        var distinctProductsInCartAndTheirQuantities = request.Cart.ProductIds
+            .Distinct()
+            .Select(id => new
+            {
+                ProductId = id,
+                Quantity = request.Cart.ProductIds.Count(p => p == id)
+            });
 
-			if (order.Products
-				    .Where(p => p.ProductId == item.ProductId)
-				    .Sum(p => p.Quantity) <= 0)
+        foreach (var item in distinctProductsInCartAndTheirQuantities)
+        {
+            order.Products
+                .Where(p => p.ProductId == item.ProductId)
+                .ToList()
+                .ForEach(p => p.Quantity -= item.Quantity);
 
-				order.Products
-					.RemoveAll(p => p.ProductId == item.ProductId);
-		}
+            if (order.Products
+                    .Where(p => p.ProductId == item.ProductId)
+                    .Sum(p => p.Quantity) <= 0)
 
-		await request.UnitOfWork.Orders.UpdateAsync(order);
-		await request.UnitOfWork.SaveChangesAsync();
+                order.Products
+                    .RemoveAll(p => p.ProductId == item.ProductId);
+        }
 
-
-
-		return Results.Ok();
+        await request.UnitOfWork.Orders.UpdateAsync(order);
+        await request.UnitOfWork.SaveChangesAsync();
 
 
-		return Results.Ok();
-	}
+
+        return Results.Ok();
+
+
+        return Results.Ok();
+    }
 }

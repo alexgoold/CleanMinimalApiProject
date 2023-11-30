@@ -3,9 +3,9 @@ using Shared.CustomerDtos;
 
 namespace Server.Endpoints.Customers.Register;
 
-public class RegisterCustomerRequest :IHttpRequest
+public class RegisterCustomerRequest : IHttpRequest
 {
-	public IUnitOfWork UnitOfWork { get; set; }
+    public IUnitOfWork UnitOfWork { get; set; }
 
-	public CustomerDto Customer { get; set; }
+    public CustomerDto Customer { get; set; }
 }

@@ -4,5 +4,5 @@ namespace Server.Endpoints.Customers.GetAll;
 
 public class GetAllCustomersRequest : IHttpRequest
 {
-	public IUnitOfWork UnitOfWork { get; set; }
+    public IUnitOfWork UnitOfWork { get; set; }
 }

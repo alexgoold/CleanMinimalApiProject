@@ -2,6 +2,6 @@
 
 public interface IHashingStrategy
 {
-	string HashPassword(string password);
-	bool VerifyPassword(string providedPassword, string hashedPassword);
+    string HashPassword(string password);
+    bool VerifyPassword(string providedPassword, string hashedPassword);
 }

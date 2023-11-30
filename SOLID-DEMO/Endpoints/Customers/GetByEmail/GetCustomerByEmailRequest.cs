@@ -4,7 +4,7 @@ namespace Server.Endpoints.Customers.GetByEmail;
 
 public class GetCustomerByEmailRequest : IHttpRequest
 {
-	public string Email { get; set; }
-	public IUnitOfWork UnitOfWork { get; set; }
-	
+    public string Email { get; set; }
+    public IUnitOfWork UnitOfWork { get; set; }
+
 }

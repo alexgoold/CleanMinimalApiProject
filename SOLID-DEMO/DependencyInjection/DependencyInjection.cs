@@ -2,7 +2,6 @@
 using Application.UnitOfWork;
 using Persistence.Repositories;
 using System.Reflection;
-using Infrastructure.Security;
 using Infrastructure.Security.HashingStrategy;
 
 namespace Server.DependencyInjection;
@@ -19,7 +18,7 @@ public static class DependencyInjection
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddSingleton<IHashingStrategy, BCryptHashingStrategy>();
 
-	}
+    }
 
 
 

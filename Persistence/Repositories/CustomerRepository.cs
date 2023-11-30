@@ -21,7 +21,7 @@ public class CustomerRepository : ICustomerRepository
 
     public async Task<IEnumerable<Customer>> GetAllAsync()
     {
-	    return await _context.Customers.ToListAsync();
+        return await _context.Customers.ToListAsync();
     }
 
     public async Task AddAsync(Customer entity)
@@ -36,12 +36,12 @@ public class CustomerRepository : ICustomerRepository
 
     public async Task DeleteAsync(Customer entity)
     {
-	    _context.Customers.Remove(entity);
+        _context.Customers.Remove(entity);
     }
 
     public async Task<Customer?> GetByEmailAsync(string email)
     {
-	    return await _context.Customers.FirstOrDefaultAsync(c => c.Email.Equals(email));
+        return await _context.Customers.FirstOrDefaultAsync(c => c.Email.Equals(email));
     }
 
 }

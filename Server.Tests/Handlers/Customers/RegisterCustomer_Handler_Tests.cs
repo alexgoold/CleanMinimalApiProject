@@ -16,94 +16,94 @@ namespace Tests.Handlers.Customers;
 
 public class RegisterCustomer_Handler_Tests
 {
-	private readonly RegisterCustomerHandler _sut;
-	private readonly Fake<IMapper> _fakeMapper;
-	private readonly Fake<IHashingStrategy> _fakeHasher;
-	private readonly Fake<IUnitOfWork> _fakeUnitOfWork;
-	private readonly RegisterCustomerRequest _dummyRequest;
+    private readonly RegisterCustomerHandler _sut;
+    private readonly Fake<IMapper> _fakeMapper;
+    private readonly Fake<IHashingStrategy> _fakeHasher;
+    private readonly Fake<IUnitOfWork> _fakeUnitOfWork;
+    private readonly RegisterCustomerRequest _dummyRequest;
 
-	public RegisterCustomer_Handler_Tests()
-	{
-		_fakeMapper = new Fake<IMapper>();
-		_fakeHasher = new Fake<IHashingStrategy>();
-		_sut = new RegisterCustomerHandler(_fakeMapper.FakedObject, _fakeHasher.FakedObject);
-		_dummyRequest = A.Dummy<RegisterCustomerRequest>();
-		_dummyRequest.Customer = A.Dummy<CustomerDto>();
-		_dummyRequest.UnitOfWork = A.Fake<IUnitOfWork>();
-		A.CallTo(() => _fakeMapper.FakedObject.Map<CustomerDto>(_dummyRequest.Customer)).Returns(CustomerGenerator.GenerateCustomerDto());
+    public RegisterCustomer_Handler_Tests()
+    {
+        _fakeMapper = new Fake<IMapper>();
+        _fakeHasher = new Fake<IHashingStrategy>();
+        _sut = new RegisterCustomerHandler(_fakeMapper.FakedObject, _fakeHasher.FakedObject);
+        _dummyRequest = A.Dummy<RegisterCustomerRequest>();
+        _dummyRequest.Customer = A.Dummy<CustomerDto>();
+        _dummyRequest.UnitOfWork = A.Fake<IUnitOfWork>();
+        A.CallTo(() => _fakeMapper.FakedObject.Map<CustomerDto>(_dummyRequest.Customer)).Returns(CustomerGenerator.GenerateCustomerDto());
 
-	}
+    }
 
-	[Fact]
-	public async Task Handle_WhenGiven_ValidCustomer_ShouldReturn_OkResult()
-	{
-		// Arrange
+    [Fact]
+    public async Task Handle_WhenGiven_ValidCustomer_ShouldReturn_OkResult()
+    {
+        // Arrange
 
-		// Act
-		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+        // Act
+        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
-		// Assert
-		result.Should().BeOfType<Ok>();
-	}
-	
-	[Fact]
-	public async Task Handle_WhenGiven_ValidCustomer_ShouldCall_HashPassword_Once()
-	{
-		// Arrange
+        // Assert
+        result.Should().BeOfType<Ok>();
+    }
 
-		// Act
-		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+    [Fact]
+    public async Task Handle_WhenGiven_ValidCustomer_ShouldCall_HashPassword_Once()
+    {
+        // Arrange
 
-		// Assert
-		A.CallTo(() => _fakeHasher.FakedObject.HashPassword(_dummyRequest.Customer.Password)).MustHaveHappenedOnceExactly();
-	}
+        // Act
+        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
-	[Fact]
-	public async Task Handle_WhenGiven_ValidCustomer_ShouldCall_AddAsync_Once()
-	{
-		// Arrange
+        // Assert
+        A.CallTo(() => _fakeHasher.FakedObject.HashPassword(_dummyRequest.Customer.Password)).MustHaveHappenedOnceExactly();
+    }
 
-		// Act
-		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+    [Fact]
+    public async Task Handle_WhenGiven_ValidCustomer_ShouldCall_AddAsync_Once()
+    {
+        // Arrange
 
-		// Assert
-		A.CallTo(() => _dummyRequest.UnitOfWork.Customers.AddAsync(A<Customer>.Ignored)).MustHaveHappenedOnceExactly();
-	}
+        // Act
+        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
-	[Fact]
-	public async Task Handle_WhenGiven_ValidCustomer_ShouldCall_SaveChangesAsync_Once()
-	{
-		// Arrange
+        // Assert
+        A.CallTo(() => _dummyRequest.UnitOfWork.Customers.AddAsync(A<Customer>.Ignored)).MustHaveHappenedOnceExactly();
+    }
 
-		// Act
-		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+    [Fact]
+    public async Task Handle_WhenGiven_ValidCustomer_ShouldCall_SaveChangesAsync_Once()
+    {
+        // Arrange
 
-		// Assert
-		A.CallTo(() => _dummyRequest.UnitOfWork.SaveChangesAsync()).MustHaveHappenedOnceExactly();
-	}
+        // Act
+        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
-	[Fact]
+        // Assert
+        A.CallTo(() => _dummyRequest.UnitOfWork.SaveChangesAsync()).MustHaveHappenedOnceExactly();
+    }
 
-	public async Task Handle_WhenGiven_ValidCustomer_ShouldCall_Map_Once()
-	{
-		// Arrange
+    [Fact]
 
-		// Act
-		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+    public async Task Handle_WhenGiven_ValidCustomer_ShouldCall_Map_Once()
+    {
+        // Arrange
 
-		// Assert
-		A.CallTo(() => _fakeMapper.FakedObject.Map<Customer>(_dummyRequest.Customer)).MustHaveHappenedOnceExactly();
-	}
+        // Act
+        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
-	[Fact]
-	public void RegisterCustomerHandler_Inherits_IRequestHandler()
-	{
-		// Arrange
+        // Assert
+        A.CallTo(() => _fakeMapper.FakedObject.Map<Customer>(_dummyRequest.Customer)).MustHaveHappenedOnceExactly();
+    }
 
-		// Act
+    [Fact]
+    public void RegisterCustomerHandler_Inherits_IRequestHandler()
+    {
+        // Arrange
 
-		// Assert
-		_sut.Should().BeAssignableTo<IRequestHandler<RegisterCustomerRequest, IResult>>();
-	}
-	
+        // Act
+
+        // Assert
+        _sut.Should().BeAssignableTo<IRequestHandler<RegisterCustomerRequest, IResult>>();
+    }
+
 }

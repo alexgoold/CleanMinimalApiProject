@@ -24,9 +24,9 @@ public class PlaceOrder_Handler_Tests
         _dummyRequest.UnitOfWork = _fakeUnitOfWork;
         _sut = new PlaceOrderHandler();
 
-	}
+    }
 
-	[Fact]
+    [Fact]
     public async Task Handle_WhenCalled_With_ValidCart_ShouldReturn_Ok()
     {
         // Arrange
@@ -34,8 +34,8 @@ public class PlaceOrder_Handler_Tests
         _dummyRequest.Cart = cart;
 
 
-		// Act
-		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+        // Act
+        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
         // Assert
         result.Should().BeOfType<Ok>();
@@ -48,14 +48,14 @@ public class PlaceOrder_Handler_Tests
         var cart = CreateOrUpdateOrderDtoGenerator.GenerateCartWith3Items();
         _dummyRequest.Cart = cart;
 
-		// Act
-		await _sut.Handle(_dummyRequest, CancellationToken.None);
+        // Act
+        await _sut.Handle(_dummyRequest, CancellationToken.None);
 
         // Assert
         A.CallTo(() => _fakeUnitOfWork.SaveChangesAsync()).MustHaveHappenedOnceExactly();
     }
 
-    
+
     [Fact]
     public async Task Handle_WhenCalled_With_Cart_WithInvalidCustomerId_ShouldReturn_NotFound()
     {
@@ -64,8 +64,8 @@ public class PlaceOrder_Handler_Tests
         _dummyRequest.Cart = cart;
         A.CallTo(() => _fakeUnitOfWork.Customers.GetAsync(A<Guid>._)).Returns((Customer)null);
 
-		// Act
-		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+        // Act
+        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
         // Assert
         result.Should().BeOfType<NotFound>();
@@ -80,8 +80,8 @@ public class PlaceOrder_Handler_Tests
         A.CallTo(() => _fakeUnitOfWork.Products.GetAsync(A<Guid>._)).Returns(Task.FromResult<Product?>(null));
 
 
-		// Act
-		var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
+        // Act
+        var result = await _sut.Handle(_dummyRequest, CancellationToken.None);
 
         // Assert
         result.Should().BeOfType<NotFound>();
@@ -109,8 +109,8 @@ public class PlaceOrder_Handler_Tests
         _dummyRequest.Cart = cart;
 
 
-		// Act
-		await _sut.Handle(_dummyRequest, CancellationToken.None);
+        // Act
+        await _sut.Handle(_dummyRequest, CancellationToken.None);
 
         // Assert
         A.CallTo(() => _fakeUnitOfWork.Orders.AddAsync(A<Order>._)).MustHaveHappenedOnceExactly();

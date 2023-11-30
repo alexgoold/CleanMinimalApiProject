@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using Domain;
 using Infrastructure.DataContext;
 
 namespace Server.Controllers;
@@ -16,7 +14,7 @@ public class MainController : ControllerBase
     {
         _shopContext = shopContext;
     }
-    
+
 
     [HttpDelete("/customers/delete/{id}")]
     public async Task<IActionResult> DeleteCustomer(Guid id)
@@ -28,5 +26,5 @@ public class MainController : ControllerBase
         await _shopContext.SaveChangesAsync();
         return Ok();
     }
-    
+
 }
