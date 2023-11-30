@@ -20,7 +20,7 @@ public class LoginCustomerHandler : IRequestHandler<LoginCustomerRequest, IResul
             return Results.Unauthorized();
         }
 
-        return _passwordHasher.VerifyPassword(customer.Password, request.Password)
+        return _passwordHasher.VerifyPassword(request.Password, customer.Password)
             ? Results.Ok()
             : Results.Unauthorized();
     }
