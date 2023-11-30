@@ -2,6 +2,8 @@
 using Application.UnitOfWork;
 using Persistence.Repositories;
 using System.Reflection;
+using Infrastructure.Security;
+using Infrastructure.Security.HashingStrategy;
 
 namespace Server.DependencyInjection;
 
@@ -15,8 +17,9 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddSingleton<IHashingStrategy, BCryptHashingStrategy>();
 
-    }
+	}
 
 
 
