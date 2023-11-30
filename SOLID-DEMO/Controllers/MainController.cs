@@ -18,17 +18,6 @@ public class MainController : ControllerBase
     }
     
 
-    [HttpPost("/customers/login")]
-    public async Task<IActionResult> LoginCustomer(string email, string password)
-    {
-        var customer = await _shopContext.Customers.FirstOrDefaultAsync(c => c.Email.Equals(email) && c.Password.Equals(password));
-        if (customer is not null)
-        {
-            return Ok();
-        }
-        return BadRequest();
-    }
-
     [HttpDelete("/customers/delete/{id}")]
     public async Task<IActionResult> DeleteCustomer(Guid id)
     {
