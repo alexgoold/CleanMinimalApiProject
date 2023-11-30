@@ -17,15 +17,6 @@ public class MainController : ControllerBase
         _shopContext = shopContext;
     }
     
-    [HttpPost("/customers/register")]
-    public async Task<IActionResult> RegisterUser(Customer customer)
-    {
-        if (!customer.Email.Contains("@"))
-            throw new ValidationException("Email is not an email");
-        await _shopContext.AddAsync(customer);
-        await _shopContext.SaveChangesAsync();
-        return Ok();
-    }
 
     [HttpPost("/customers/login")]
     public async Task<IActionResult> LoginCustomer(string email, string password)
