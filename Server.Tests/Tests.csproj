@@ -30,9 +30,5 @@
     <ProjectReference Include="..\SOLID-DEMO\Server.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Handlers\Customers\" />
-  </ItemGroup>
-
 
 </Project>
