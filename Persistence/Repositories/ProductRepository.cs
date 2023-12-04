@@ -37,6 +37,6 @@ public class ProductRepository : IProductRepository
 
     public async Task DeleteAsync(Product entity)
     {
-        throw new NotImplementedException();
+        _context.Products.Remove(entity);
     }
 }

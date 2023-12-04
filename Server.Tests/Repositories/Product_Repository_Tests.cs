@@ -153,6 +153,21 @@ namespace Tests.Repositories
 
         #region DeleteAsync Tests
 
+        [Fact]
+        public async Task DeleteAsync_WhenCalled_DeletesProduct_FromDatabase()
+        {
+			// Arrange
+			var product = ProductGenerator.GenerateProduct();
+			ProductDatabase.SeedDatabaseWithSingleProduct(_context, product);
+
+			// Act
+			await _sut.DeleteAsync(product);
+			await _context.SaveChangesAsync();
+
+			// Assert
+			_context.Products.Should().NotContainEquivalentOf(product);
+		}
+
 
         #endregion
 
