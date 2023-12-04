@@ -2,7 +2,7 @@
 
 namespace Server.Endpoints.Customers.Delete;
 
-public class DeleteCustomerByIdRequest
+public class DeleteCustomerByIdRequest : IHttpRequest
 {
     public Guid Id { get; set; }
     public IUnitOfWork UnitOfWork { get; set; }

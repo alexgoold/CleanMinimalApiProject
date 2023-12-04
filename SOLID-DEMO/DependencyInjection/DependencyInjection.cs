@@ -14,9 +14,9 @@ public static class DependencyInjection
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddSingleton<IHashingStrategy, Pbkdf2HashingStrategy>();
         services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
-        services.AddSingleton<IHashingStrategy, BCryptHashingStrategy>();
 
     }
 

@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using FakeItEasy;
+using FluentAssertions;
 using Infrastructure.Security.HashingStrategy;
 using Xunit;
 
@@ -41,8 +42,7 @@ public class Pbkdf2HashingStrategy_Tests
     }
 
     [Fact]
-    public void
-        VerifyPassword_ShouldReturn_False_WhenGiven_A_Password_And_A_Different_Password_Hashed_By_This_Strategy()
+    public void VerifyPassword_ShouldReturn_False_WhenGiven_A_Password_And_A_Different_Password_Hashed_By_This_Strategy()
     {
         // Arrange
         var password = "password";
@@ -55,4 +55,5 @@ public class Pbkdf2HashingStrategy_Tests
         // Assert
         result.Should().BeFalse();
     }
+
 }
