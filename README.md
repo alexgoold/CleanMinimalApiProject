@@ -4,6 +4,8 @@ A school project to learn testing, TDD and design patterns.
 
 This was the assignment, and the original API was built with a controller API
 
+(Assigment Text in Swedish)
+
 Labb 1 - Refaktorering och TDD
 Vårat företag har fått ett uppdrag av en mindre kund att hjälpa till att rädda deras webbshop-projekt.
 
